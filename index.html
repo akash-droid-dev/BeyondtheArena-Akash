@@ -12,6 +12,9 @@
 </head>
 <body data-theme="paper">
 
+<!-- ===================== A11Y SKIP LINK ===================== -->
+<a class="skip-link" href="#work">Skip to work</a>
+
 <!-- ===================== INTRO CURTAIN ===================== -->
 <div class="curtain" id="curtain">
   <div class="floodlights" aria-hidden="true"></div>
@@ -44,6 +47,9 @@
   </div>
 </div>
 
+<!-- ===================== SCROLL PROGRESS ===================== -->
+<div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
+
 <div class="wrap">
 
   <!-- ===================== MASTHEAD ===================== -->
@@ -60,13 +66,13 @@
       </div>
     </div>
     <div class="mast-right">
-      <a class="btn-ghost" href="#work">Work
+      <a class="btn-ghost" href="#work" data-magnetic>Work
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg>
       </a>
-      <a class="btn-ghost solid" href="#contact">Hire Akash
+      <a class="btn-ghost solid" href="#contact" data-magnetic>Hire Akash
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
       </a>
-      <button class="btn-ghost" id="themeBtn" aria-label="Toggle theme">
+      <button class="btn-ghost" id="themeBtn" aria-label="Toggle theme" data-magnetic>
         <span class="label">Floodlights · On</span>
       </button>
     </div>
@@ -74,11 +80,62 @@
 
   <!-- ===================== HERO COVER ===================== -->
   <section class="cover">
-    <!-- floating project polaroids -->
-    <div class="polaroids" aria-hidden="true">
-      <div class="poloroid pol-1" data-project="ipl"><div class="ph"></div><div class="cap">…</div></div>
-      <div class="poloroid pol-2" data-project="archery"><div class="ph"></div><div class="cap">…</div></div>
-      <div class="poloroid pol-3" data-project="somnath"><div class="ph"></div><div class="cap">…</div></div>
+    <!-- floating event tickets -->
+    <div class="tickets" aria-hidden="true">
+      <article class="ticket tk-1" data-project="ipl">
+        <div class="tk-perf"></div>
+        <div class="tk-body">
+          <div class="tk-head">
+            <span class="tk-event">TATA IPL 2024</span>
+            <span class="tk-stamp">PAID</span>
+          </div>
+          <div class="tk-art tk-art-ipl"></div>
+          <div class="tk-row"><span>Venue</span><b>Wankhede · MUM</b></div>
+          <div class="tk-row"><span>Gate</span><b>04 · Zone A</b></div>
+          <div class="tk-row"><span>Seat</span><b>OPS · CONCOURSE</b></div>
+          <div class="tk-barcode"></div>
+        </div>
+        <div class="tk-stub">
+          <span class="tk-stub-no">01</span>
+          <span class="tk-stub-l">ACCRED</span>
+        </div>
+      </article>
+
+      <article class="ticket tk-2" data-project="archery">
+        <div class="tk-perf"></div>
+        <div class="tk-body">
+          <div class="tk-head">
+            <span class="tk-event">KIA · Archery</span>
+            <span class="tk-stamp">VENUE</span>
+          </div>
+          <div class="tk-art tk-art-arch"></div>
+          <div class="tk-row"><span>Range</span><b>Ambaji · 70m</b></div>
+          <div class="tk-row"><span>Std.</span><b>AAI / WA</b></div>
+          <div class="tk-barcode"></div>
+        </div>
+        <div class="tk-stub">
+          <span class="tk-stub-no">02</span>
+          <span class="tk-stub-l">RANGE</span>
+        </div>
+      </article>
+
+      <article class="ticket tk-3" data-project="somnath">
+        <div class="tk-perf"></div>
+        <div class="tk-body">
+          <div class="tk-head">
+            <span class="tk-event">Somnath ’26</span>
+            <span class="tk-stamp">PM TIER</span>
+          </div>
+          <div class="tk-art tk-art-som"></div>
+          <div class="tk-row"><span>Zone</span><b>VIP · Stage</b></div>
+          <div class="tk-row"><span>Protocol</span><b>PM</b></div>
+          <div class="tk-barcode"></div>
+        </div>
+        <div class="tk-stub">
+          <span class="tk-stub-no">03</span>
+          <span class="tk-stub-l">PROTOCOL</span>
+        </div>
+      </article>
     </div>
 
     <div class="cover-grid">
@@ -123,42 +180,83 @@
   </section>
 
   <!-- ===================== MANIFESTO ===================== -->
-  <section class="section">
-    <div class="section-tag"><span class="num">§ 01</span> Manifesto</div>
+  <section class="section" data-folio="§ 01 · Manifesto">
+    <div class="section-tag" data-anchor="01"><span class="num">§ 01</span> Manifesto</div>
     <h2 class="section-h">A career spent <em>between</em><br>the whistle and the wireframe.</h2>
 
     <div class="manifesto">
       <div class="body">
         <p>I work where sports operations and product meet. One week I'm authoring the accreditation policy for a multi-sport national event; the next I'm sitting with engineers to scope a registration module, or driving across a state to set up an archery range to <span class="hl">AAI standards</span>.</p>
         <p>The throughline is the same: take a messy, high-stakes situation — a stadium, a federation, a state government — and turn it into something that runs. Documents, dashboards, workflows, vendor matrices, escalation paths. Whatever the system needs.</p>
-        <p>I've delivered for the <span class="hl">IPL</span>, the <span class="hl">National Games</span>, <span class="hl">Khelo India</span>, the Sports Authority of Jharkhand, and a state-level cultural event hosted by the Prime Minister. I write the BRDs. I print the badges. I'm comfortable in both rooms.</p>
+
+        <blockquote class="pullquote">
+          I write the BRDs. I print the badges. I'm comfortable in both rooms.
+          <cite>Operating principle</cite>
+        </blockquote>
+
+        <p>I've delivered for the <span class="hl">IPL</span>, the <span class="hl">National Games</span>, <span class="hl">Khelo India</span>, the Sports Authority of Jharkhand, and a state-level cultural event hosted by the Prime Minister.</p>
       </div>
-      <aside class="side">
-        <div class="side-block">
-          <h5>Currently</h5>
-          <div class="row"><span>Asst. Manager — IT & Ops</span><span>GoBananas / GMS</span></div>
-          <div class="row"><span>Business Analysis</span><span>Reg · Accred · Tourney</span></div>
-          <div class="row"><span>Based out of</span><span>New Delhi</span></div>
+      <aside class="side dossier">
+        <div class="doss-meta">
+          <span>The Operator</span>
+          <span>Personal Dossier · 03 files</span>
+          <span class="doss-instr">tap a folder ▾</span>
         </div>
-        <div class="side-block">
-          <h5>I write</h5>
-          <div class="row"><span>BRD · FRD · PRD</span><span>Platform spec</span></div>
-          <div class="row"><span>SOPs · DPRs</span><span>Event spec</span></div>
-          <div class="row"><span>Tender Docs</span><span>Govt. compliance</span></div>
-        </div>
-        <div class="side-block">
-          <h5>I run</h5>
-          <div class="row"><span>Accreditation</span><span>Multi-stadium</span></div>
-          <div class="row"><span>Vendor coordination</span><span>End-to-end</span></div>
-          <div class="row"><span>Cross-functional ops</span><span>Engg · Design · Govt.</span></div>
-        </div>
+
+        <button class="folder" data-folder="now" aria-expanded="false">
+          <div class="folder-tab">
+            <span class="f-num">01</span>
+            <span class="f-title">Currently</span>
+            <span class="f-stamp">ACTIVE</span>
+            <svg class="f-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5 L6 7.5 L9 4.5"/></svg>
+          </div>
+          <div class="folder-body">
+            <div class="folder-seal">SEALED · 2026</div>
+            <div class="row"><span>Asst. Manager — IT &amp; Ops</span><span>GoBananas / GMS</span></div>
+            <div class="row"><span>Business Analysis</span><span>Reg · Accred · Tourney</span></div>
+            <div class="row"><span>Based out of</span><span>New Delhi</span></div>
+            <div class="folder-foot"><span>Filed · 13 May 2026</span><span>Live</span></div>
+          </div>
+        </button>
+
+        <button class="folder" data-folder="write" aria-expanded="false">
+          <div class="folder-tab">
+            <span class="f-num">02</span>
+            <span class="f-title">I write</span>
+            <span class="f-stamp doc">DOCS</span>
+            <svg class="f-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5 L6 7.5 L9 4.5"/></svg>
+          </div>
+          <div class="folder-body">
+            <div class="folder-seal">SPEC SET</div>
+            <div class="row"><span>BRD · FRD · PRD</span><span>Platform spec</span></div>
+            <div class="row"><span>SOPs · DPRs</span><span>Event spec</span></div>
+            <div class="row"><span>Tender Docs</span><span>Govt. compliance</span></div>
+            <div class="folder-foot"><span>Authored · 12+</span><span>Living docs</span></div>
+          </div>
+        </button>
+
+        <button class="folder" data-folder="run" aria-expanded="false">
+          <div class="folder-tab">
+            <span class="f-num">03</span>
+            <span class="f-title">I run</span>
+            <span class="f-stamp ops">OPS</span>
+            <svg class="f-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5 L6 7.5 L9 4.5"/></svg>
+          </div>
+          <div class="folder-body">
+            <div class="folder-seal">FIELD LOG</div>
+            <div class="row"><span>Accreditation</span><span>Multi-stadium</span></div>
+            <div class="row"><span>Vendor coordination</span><span>End-to-end</span></div>
+            <div class="row"><span>Cross-functional ops</span><span>Engg · Design · Govt.</span></div>
+            <div class="folder-foot"><span>States · 7</span><span>Match-ready</span></div>
+          </div>
+        </button>
       </aside>
     </div>
   </section>
 
   <!-- ===================== STATS ===================== -->
-  <section class="section" style="padding-top:48px">
-    <div class="section-tag"><span class="num">§ 02</span> By the Numbers</div>
+  <section class="section" style="padding-top:48px" data-folio="§ 02 · By the Numbers">
+    <div class="section-tag" data-anchor="02"><span class="num">§ 02</span> By the Numbers</div>
     <div class="stats">
       <div class="stat">
         <div class="num"><span data-count="3">00</span><sup>+</sup></div>
@@ -184,8 +282,8 @@
   </section>
 
   <!-- ===================== WORK / PROJECT GRID ===================== -->
-  <section class="section" id="work">
-    <div class="section-tag"><span class="num">§ 03</span> Selected Work</div>
+  <section class="section" id="work" data-folio="§ 03 · Selected Work">
+    <div class="section-tag" data-anchor="03"><span class="num">§ 03</span> Selected Work</div>
     <div class="project-bar">
       <h2 class="section-h">Six recent <em>environments</em>.</h2>
     </div>
@@ -274,8 +372,8 @@
   </section>
 
   <!-- ===================== EXPERIENCE DECK ===================== -->
-  <section class="section">
-    <div class="section-tag"><span class="num">§ 04</span> Career Tape</div>
+  <section class="section" data-folio="§ 04 · Career Tape">
+    <div class="section-tag" data-anchor="04"><span class="num">§ 04</span> Career Tape</div>
     <h2 class="section-h">The <em>tape</em>.</h2>
     <p class="section-lede">A career, top to bottom. Click a card, drag to swipe, or arrow-key through.</p>
 
@@ -305,8 +403,8 @@
   </section>
 
   <!-- ===================== TOOLKIT ===================== -->
-  <section class="section">
-    <div class="section-tag"><span class="num">§ 05</span> Toolkit</div>
+  <section class="section" data-folio="§ 05 · Toolkit">
+    <div class="section-tag" data-anchor="05"><span class="num">§ 05</span> Toolkit</div>
     <h2 class="section-h">The <em>kit</em>.</h2>
     <p class="section-lede">A practical mix of documentation craft, product tools, and the new wave of AI co-pilots that have quietly become daily drivers.</p>
 
@@ -389,9 +487,9 @@
   </section>
 
   <!-- ===================== CONTACT / PASS ===================== -->
-  <section class="contact" id="contact">
+  <section class="contact" id="contact" data-folio="§ 06 · Get in Touch">
     <div>
-      <div class="section-tag"><span class="num">§ 06</span> Get in Touch</div>
+      <div class="section-tag" data-anchor="06"><span class="num">§ 06</span> Get in Touch</div>
       <h2>Need an <em>operator</em>?</h2>
       <p class="lede">Open to roles in business analysis, product/platform documentation, and sports/event operations. Comfortable on a call, on a stadium concourse, or in a tender review.</p>
       <div class="contact-links">
@@ -514,15 +612,54 @@
 
       <!-- TAB PANES -->
       <div class="tab-pane active" data-pane="overview">
+
+        <!-- LIVE BROADCAST HUD -->
+        <div class="hud">
+          <div class="hud-tag">
+            <span class="hud-live"></span>
+            <span>Project Vitals</span>
+          </div>
+          <div class="hud-stats"></div>
+          <div class="hud-side">
+            <span class="hud-clock">— : —</span>
+            <span class="hud-loc">IND</span>
+          </div>
+        </div>
+
         <div class="ov-grid">
           <div>
             <h3>The <em>brief</em>.</h3>
             <div class="ov-body"><p>—</p></div>
             <div class="why-q" style="margin-top:32px"></div>
+
+            <!-- ZONE MATRIX -->
+            <div class="zonemat">
+              <div class="zm-h">
+                <span class="zm-l">Access Matrix · Bearer Auth</span>
+                <span class="zm-r">hover a cell</span>
+              </div>
+              <div class="zm-grid"></div>
+              <div class="zm-legend">
+                <span class="zm-key on">●</span> Permitted
+                <span class="zm-key off">●</span> Denied
+                <span class="zm-key esc">●</span> Escort
+              </div>
+            </div>
           </div>
           <aside class="ov-side">
             <span class="stamp">At a glance</span>
             <div class="kvs"></div>
+            <div class="ov-seal">
+              <div class="ov-seal-ring">
+                <span>ON&nbsp;FIELD · </span>
+                <span>ON&nbsp;FIELD · </span>
+                <span>ON&nbsp;FIELD · </span>
+              </div>
+              <div class="ov-seal-core">
+                <span class="seal-no">— —</span>
+                <span class="seal-l">VOL · OPERATOR</span>
+              </div>
+            </div>
           </aside>
         </div>
       </div>
@@ -536,6 +673,20 @@
       </div>
 
       <div class="tab-pane" data-pane="specs">
+
+        <!-- PHASE TIMELINE -->
+        <div class="phases">
+          <div class="ph-h"><span>Project Phases</span><span class="ph-meta">scroll left → right</span></div>
+          <ol class="ph-track">
+            <li class="ph-step done"><span class="ph-dot"></span><span class="ph-n">01</span><span class="ph-t">Discover</span></li>
+            <li class="ph-step done"><span class="ph-dot"></span><span class="ph-n">02</span><span class="ph-t">Define</span></li>
+            <li class="ph-step done"><span class="ph-dot"></span><span class="ph-n">03</span><span class="ph-t">Design</span></li>
+            <li class="ph-step"><span class="ph-dot"></span><span class="ph-n">04</span><span class="ph-t">Build</span></li>
+            <li class="ph-step"><span class="ph-dot"></span><span class="ph-n">05</span><span class="ph-t">Ship</span></li>
+            <li class="ph-step"><span class="ph-dot"></span><span class="ph-n">06</span><span class="ph-t">Operate</span></li>
+          </ol>
+        </div>
+
         <div class="specs-wrap">
           <div>
             <h3 style="font-family:'Instrument Serif',serif; font-weight:400; font-size:38px; margin:0 0 18px;">The <em style="color:var(--flood); font-style:italic;">spec</em>.</h3>

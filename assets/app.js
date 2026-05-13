@@ -1,706 +1,982 @@
-/* ============================================================
-   AKASH RATHORE — PORTFOLIO
-   Interactions, project environments, scroll effects
-   ============================================================ */
+/* ====================================================================
+   THE OPERATOR — app.js
+   ==================================================================== */
 
-// ---------- IMAGE SOURCES ----------
-const IMG = {
-  stadium:     'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1600&q=80',
-  cricketField:'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1600&q=80',
-  cricketBat:  'https://images.unsplash.com/photo-1500098693856-b29e29ab30f8?w=1600&q=80',
-  crowd:       'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600&q=80',
-  archery:     'https://images.unsplash.com/photo-1565992441121-4367c2967103?w=1600&q=80',
-  archeryAlt:  'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?w=1600&q=80',
-  temple:      'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=1600&q=80',
-  templeAlt:   'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=1600&q=80',
-  conference:  'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=1600&q=80',
-  meeting:     'https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1600&q=80',
-  dashboard:   'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=80',
-  screens:     'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&q=80',
-  goa:         'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=1600&q=80',
-  podium:      'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=1600&q=80',
-  flag:        'https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=1600&q=80',
-  ceremony:    'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=1600&q=80',
-  signage:     'https://images.unsplash.com/photo-1517649763962-0c623066013b?w=1600&q=80',
-  badge:       'https://images.unsplash.com/photo-1559223607-a43c990c692c?w=1600&q=80',
-  jharkhand:   'https://images.unsplash.com/photo-1604608672516-f1b9b1d1a4a4?w=1600&q=80',
-  govBldg:     'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1600&q=80',
-  team:        'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1600&q=80',
-  whiteboard:  'https://images.unsplash.com/photo-1572177812156-58036aae439c?w=1600&q=80',
-  laptop:      'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=1600&q=80',
-};
+(() => {
+'use strict';
 
-// ---------- PROJECT DATA ----------
-const PROJECTS = {
-  gms: {
-    name: 'Games Management System',
-    nameHTML: 'Games <em>Management</em> System',
-    client: 'GoBananas',
-    year: '2025 — Present',
-    role: 'Business Analyst · Product',
-    cover: IMG.dashboard,
-    strap: "A federation-grade games platform — Registration, Accreditation, Tournament Management, Admin — documented from first principles.",
-    tags: ['BRD/FRD/PRD', 'UI/UX Wireframing', 'Automation'],
-    pill: 'In Production',
-    overview: [
-      "GMS is the operating system for a sports federation. It moves every athlete from registration to the field of play, every official from credential to access zone, every tournament from fixture to final.",
-      "My job is to translate the messy reality of how sports actually run — federations, sponsors, government rules, vendor SLAs — into something engineering can ship: BRDs, FRDs, PRDs, user flows, workflow diagrams, use cases, acceptance criteria.",
-      "I also run client servicing on the same platform: approvals, change requests, status reviews, delivery accountability — so the spec author and the delivery owner are the same person."
-    ],
-    bullets: [
-      "<b>4 modules</b> documented end-to-end: Registration, Accreditation, Tournament Management, Admin.",
-      "User flows, workflow diagrams, use cases & scenarios produced for every primary path and exception.",
-      "Stakeholder asks (federation / sponsor / govt.) translated into platform-ready specs and sequenced with engineering and design.",
-      "Manual workflows mapped, bottlenecks identified, automation proposed and shipped to cut turnaround time.",
-    ],
-    gallery: [
-      { src: IMG.dashboard, cap: 'Module dashboard · Admin' , cls:'big'},
-      { src: IMG.whiteboard, cap: 'Workflow sessions', cls:'tall'},
-      { src: IMG.screens, cap: 'Spec / wireframes' , cls:'wide'},
-      { src: IMG.meeting, cap: 'Stakeholder review' , cls:'sq'},
-      { src: IMG.laptop, cap: 'Implementation review' , cls:'thumb'},
-      { src: IMG.team, cap: 'Cross-functional sync' , cls:'thumb'},
-      { src: IMG.signage, cap: 'On-ground rollout' , cls:'thumb'},
-    ],
-    specs: [
-      ['Role','Business Analyst · Product'],
-      ['Engagement','Asst. Manager · IT & Ops'],
-      ['Modules','4 · Reg · Accred · Tourney · Admin'],
-      ['Stack','Figma · Jira · Zoho · MS 365'],
-      ['Stakeholders','Engg · Design · Ops · Govt.'],
-      ['Status','Live & iterating'],
-    ],
-    chips: { 'Documentation': ['BRD','FRD','PRD','SOP','Use Cases','User Flows','Process Maps'], 'Tools':['Figma','Jira','Zoho Sprints'] },
-    outcomes: [
-      ['Spec coverage', 96],
-      ['Manual steps automated', 72],
-      ['Stakeholder approvals on time', 88],
-      ['Module ship velocity', 80],
-    ],
-    why: "GMS is the through-line of my product practice. It demonstrates the discipline of writing a platform from the operator's seat — every spec is informed by having actually run the operation it describes.",
-  },
+/* ============= TWEAK DEFAULTS ============= */
+const TWEAKS = /*EDITMODE-BEGIN*/{
+  "accent": "#d63919",
+  "theme": "paper",
+  "showTicker": true,
+  "showPolaroids": true
+}/*EDITMODE-END*/;
 
-  sajha: {
-    name: 'SAJHA — Unified Sports Portal',
-    nameHTML: 'SAJHA — Unified <em>Sports</em> Portal',
-    client: 'Sports Authority of Jharkhand',
-    year: '2024 — 2025',
-    role: 'Project Lead',
-    cover: IMG.govBldg,
-    strap: "Digitising a state sports authority — athletes, officials, federations, schemes — into one navigable portal.",
-    tags: ['Digitalization', 'FRD/BRD/SOP/DPR', 'Government'],
-    pill: 'Shipped',
-    overview: [
-      "SAJHA is the single front door to the Sports Authority of Jharkhand. Citizens, athletes, technical officials and federations get answers, schemes and services from one place — instead of seven offices.",
-      "I led the digitalisation effort: workflows mapped, services scoped, a multi-module database designed and integrated with the authority's internal IT systems.",
-      "Government work runs on paper. The lifecycle documentation — FRDs, BRDs, SOPs, DPRs — is the contract. I owned it end to end for the portal and adjacent platform initiatives."
-    ],
-    bullets: [
-      "<b>End-to-end digitisation</b> of information & service delivery for citizens, athletes and officials.",
-      "Multi-module sports database — athletes, officials, federations, stakeholders — integrated with internal IT.",
-      "Full-lifecycle documentation: FRDs, BRDs, SOPs, DPRs for the portal and related programs.",
-      "Drove enrolment for state government sports schemes through purpose-built tooling and process automation.",
-    ],
-    gallery: [
-      { src: IMG.govBldg, cap: 'Sports Authority of Jharkhand', cls:'big'},
-      { src: IMG.jharkhand, cap: 'Field outreach', cls:'tall'},
-      { src: IMG.dashboard, cap: 'Portal · scheme console', cls:'wide'},
-      { src: IMG.whiteboard, cap: 'Workflow mapping', cls:'sq'},
-      { src: IMG.meeting, cap: 'Departmental review', cls:'thumb'},
-      { src: IMG.screens, cap: 'FRD walkthroughs', cls:'thumb'},
-      { src: IMG.team, cap: 'Sports fellows · Ranchi', cls:'thumb'},
-    ],
-    specs: [
-      ['Role','Project Lead'],
-      ['Client','Sports Authority of Jharkhand'],
-      ['Modules','Athletes · Officials · Federations · Schemes'],
-      ['Docs','FRDs · BRDs · SOPs · DPRs'],
-      ['Users','Athletes · Officials · Citizens'],
-      ['Status','Shipped'],
-    ],
-    chips: { 'Documentation':['FRD','BRD','SOP','DPR','Tender Docs'], 'Domains':['Athletes DB','Officials DB','Schemes','Outreach'] },
-    outcomes: [
-      ['Workflow digitisation', 84],
-      ['Scheme enrolment uplift', 68],
-      ['Manual files retired', 78],
-      ['Inter-dept handoffs cut', 60],
-    ],
-    why: "Working with a state authority taught me to write specs that survive paper, audits and turnover. The portal is a hand-off proof that the documents work."
-  },
-
-  ipl: {
-    name: 'TATA IPL — Accreditation',
-    nameHTML: 'TATA IPL — <em>Accreditation</em>',
-    client: 'Paytm Insider',
-    year: '2023 — 2024',
-    role: 'Accreditation Manager',
-    cover: IMG.stadium,
-    strap: "A matrix-based accreditation framework for one of the most-watched leagues in the world, operated across multiple stadia.",
-    tags: ['Crowd Management', 'Access Control', 'Real-time'],
-    pill: 'Delivered · 2 Seasons',
-    overview: [
-      "Two IPL seasons. The job is brutally simple to describe and brutally hard to do: every person in the stadium has the right access, at the right zone, at the right time.",
-      "In 2024 I spearheaded crowd management and access-control strategy across multi-stadium operations. The system was a zoning matrix — issued at registration, validated at the gate, escalated in real time when something didn't match.",
-      "In 2023 I worked the same problem from the other end — printing, issuing and verifying credentials on the floor, coordinating signage and security liaison.",
-    ],
-    bullets: [
-      "Matrix-based accreditation framework monitoring crowd movement, zoning and credential validity in real time.",
-      "<b>Multi-stadium</b> ops with central coordination on issuance, escalation handling and venue compliance.",
-      "Operated both as <b>floor lead</b> (’23) and <b>strategy lead</b> (’24) — full vertical experience.",
-      "Worked alongside venue security, league ops and broadcast partners across match days.",
-    ],
-    gallery: [
-      { src: IMG.stadium, cap: 'Floodlit ground', cls:'big'},
-      { src: IMG.cricketBat, cap: 'Match day', cls:'tall'},
-      { src: IMG.cricketField, cap: 'Field of play', cls:'wide'},
-      { src: IMG.crowd, cap: 'Crowd · multi-stand', cls:'sq'},
-      { src: IMG.badge, cap: 'Credential issuance', cls:'thumb'},
-      { src: IMG.signage, cap: 'Zone signage', cls:'thumb'},
-      { src: IMG.team, cap: 'Ops floor', cls:'thumb'},
-    ],
-    specs: [
-      ['Role','Accreditation Manager (2024) · Executive (2023)'],
-      ['Seasons','IPL 2023 + 2024'],
-      ['Scope','Multi-stadium'],
-      ['Discipline','Access · Zoning · Crowd'],
-      ['Stakeholders','League · Venue · Security · Broadcast'],
-      ['Status','Delivered'],
-    ],
-    chips: { 'Operations':['Access Control','Zoning Matrix','Credential Issuance','Escalation'], 'Coordination':['League Ops','Venue Security','Broadcast'] },
-    outcomes: [
-      ['Credential validity rate', 99],
-      ['Escalation resolution', 95],
-      ['Venue compliance', 100],
-      ['Cross-venue consistency', 92],
-    ],
-    why: "The IPL is where you learn to keep your head when a stand is rushing the gate. Most of how I think about access control was forged across these two seasons."
-  },
-
-  ng: {
-    name: '37th National Games — Goa',
-    nameHTML: '37<sup>th</sup> National Games — <em>Goa</em>',
-    client: 'Sports Authority of Goa',
-    year: '2023',
-    role: 'Project Officer — Accreditation & IT',
-    cover: IMG.goa,
-    strap: "Authoring policy and tender scope for one of India's largest multi-sport events.",
-    tags: ['Accreditation Policy', 'Tender Docs', 'IT Integration'],
-    pill: 'Closed',
-    overview: [
-      "A 28-discipline multi-sport games across an entire state. Hundreds of officials, thousands of athletes, multiple venues, one credential system.",
-      "I drafted the Games Accreditation Policy aligned to multi-sport event standards and government compliance — then authored the manuals and tender documents that turned the policy into a deliverable.",
-      "On the IT side I supported the setup and integration that made accreditation, data flow and venue operations actually work together.",
-    ],
-    bullets: [
-      "Drafted and executed the <b>Games Accreditation Policy</b>, aligned to multi-sport event standards.",
-      "Authored department manuals and tender documents — accreditation + IT scope, vendor obligations, SLAs.",
-      "Supported IT systems setup and integration across accreditation, data flow and venue ops.",
-      "Coordinated with multiple government bodies and federations during the build-up.",
-    ],
-    gallery: [
-      { src: IMG.goa, cap: 'Goa — host state', cls:'big'},
-      { src: IMG.podium, cap: 'Podium · medal ceremony', cls:'tall'},
-      { src: IMG.flag, cap: 'Opening ceremony', cls:'wide'},
-      { src: IMG.ceremony, cap: 'Multi-venue ops', cls:'sq'},
-      { src: IMG.badge, cap: 'Credential design', cls:'thumb'},
-      { src: IMG.signage, cap: 'Venue signage', cls:'thumb'},
-      { src: IMG.dashboard, cap: 'Data flow design', cls:'thumb'},
-    ],
-    specs: [
-      ['Role','Project Officer'],
-      ['Client','Sports Authority of Goa'],
-      ['Scope','Policy · Tender · IT'],
-      ['Disciplines','28 sports'],
-      ['Edition','37th National Games'],
-      ['Status','Closed'],
-    ],
-    chips: { 'Authored':['Accred. Policy','Dept. Manuals','Tender Docs','SLAs'], 'IT':['Systems Setup','Data Flow','Venue Ops Integration'] },
-    outcomes: [
-      ['Policy adoption (venues)', 100],
-      ['Tender clarity (queries closed)', 90],
-      ['Cross-dept handoffs', 85],
-      ['IT readiness pre-games', 92],
-    ],
-    why: "Goa is where I started writing the language of large events for the government — policy first, tender second, system third."
-  },
-
-  archery: {
-    name: 'NTPC Khelo India — Archery',
-    nameHTML: 'NTPC Khelo India — <em>Archery</em>',
-    client: 'GoBananas · Archery Assoc. of India',
-    year: 'January 2026',
-    role: 'Production & Operations Manager',
-    cover: IMG.archery,
-    strap: "Production and ops lead for the NTPC Khelo India National Ranking Women's Archery Tournament — Ambaji, Gujarat.",
-    tags: ['Venue Setup', 'AAI Standards', 'Vendor Ops'],
-    pill: 'Delivered',
-    overview: [
-      "A national-ranking women's archery tournament executed to the Archery Association of India's standards in Ambaji, Gujarat.",
-      "I planned the venue end to end — field of play, scoring, athlete amenities, signage — then ran vendor coordination for equipment, materials and infrastructure on the build.",
-      "On match days I supervised live event operations across the tournament timeline."
-    ],
-    bullets: [
-      "Planned end-to-end venue setup as per <b>Archery Association of India standards</b>.",
-      "Managed vendor coordination for equipment, materials and on-site infrastructure.",
-      "Supervised signage, equipment placement and live event operations across the tournament timeline.",
-      "Worked closely with the federation, athletes and the host venue team.",
-    ],
-    gallery: [
-      { src: IMG.archery, cap: 'Field of play · target line', cls:'big'},
-      { src: IMG.archeryAlt, cap: 'Athletes warming up', cls:'tall'},
-      { src: IMG.signage, cap: 'Venue signage', cls:'wide'},
-      { src: IMG.ceremony, cap: 'Officials briefing', cls:'sq'},
-      { src: IMG.flag, cap: 'Opening', cls:'thumb'},
-      { src: IMG.team, cap: 'Ops floor', cls:'thumb'},
-      { src: IMG.podium, cap: 'Medal ceremony', cls:'thumb'},
-    ],
-    specs: [
-      ['Role','Production & Ops Manager'],
-      ['Venue','Ambaji, Gujarat'],
-      ['Standards','Archery Association of India'],
-      ['Discipline','Women’s Archery · National Ranking'],
-      ['Scope','Setup → Execution'],
-      ['Status','Delivered'],
-    ],
-    chips: { 'Production':['Venue Setup','FOP Layout','Signage','Equipment Placement'], 'Coordination':['Vendors','Federation','Host Venue'] },
-    outcomes: [
-      ['Venue compliance (AAI)', 100],
-      ['Vendor SLA adherence', 95],
-      ['Athlete satisfaction', 92],
-      ['On-time execution', 100],
-    ],
-    why: "Archery is millimetric. A misaligned target line is a story. Running this event to federation standards was a test of every operations habit I have."
-  },
-
-  somnath: {
-    name: 'Somnath Swabhiman Parva',
-    nameHTML: 'Somnath <em>Swabhiman</em> Parva',
-    client: 'GoBananas · Gov. of Gujarat',
-    year: 'January 2026',
-    role: 'Project Coordinator',
-    cover: IMG.temple,
-    strap: "1000 Years of Somnath Mandir — a high-profile state cultural event featuring the Hon'ble Prime Minister.",
-    tags: ['VIP Accreditation', 'Event Flow', 'Security Coord.'],
-    pill: 'Delivered',
-    overview: [
-      "A millennium of one of India's most significant temples, marked with a state-level event hosted by the Hon'ble Prime Minister.",
-      "I coordinated cross-functional teams across protocol, vendor, security and creative — and authored the detailed event-flow documentation for PM arrival protocol and the ceremonial proceedings.",
-      "On the ground I owned VIP accreditation, security coordination and vendor & material deployment across the venue."
-    ],
-    bullets: [
-      "Coordinated cross-functional teams for a state-level cultural event with the Hon'ble Prime Minister.",
-      "Managed VIP accreditation and security coordination end to end.",
-      "Authored detailed event-flow documentation for <b>PM arrival protocol</b> and ceremonial proceedings.",
-      "Vendor and material deployment across the venue.",
-    ],
-    gallery: [
-      { src: IMG.temple, cap: 'Somnath at dusk', cls:'big'},
-      { src: IMG.templeAlt, cap: 'Ceremonial space', cls:'tall'},
-      { src: IMG.flag, cap: 'State flags', cls:'wide'},
-      { src: IMG.ceremony, cap: 'Protocol briefing', cls:'sq'},
-      { src: IMG.podium, cap: 'Address stage', cls:'thumb'},
-      { src: IMG.signage, cap: 'Wayfinding', cls:'thumb'},
-      { src: IMG.team, cap: 'Coordination team', cls:'thumb'},
-    ],
-    specs: [
-      ['Role','Project Coordinator'],
-      ['Event','Somnath Swabhiman Parva'],
-      ['Principal','Hon’ble Prime Minister'],
-      ['Disciplines','Protocol · Security · Vendor'],
-      ['Author','PM Arrival Protocol Doc'],
-      ['Status','Delivered'],
-    ],
-    chips: { 'Protocol':['PM Arrival','Ceremonial Flow','VIP Accred.'], 'On-Ground':['Security Coord.','Vendor Deployment','Material Logistics'] },
-    outcomes: [
-      ['Protocol compliance', 100],
-      ['VIP accred. accuracy', 98],
-      ['Vendor on-time', 96],
-      ['Event flow adherence', 100],
-    ],
-    why: "Working a PM-level protocol event sharpens an operator. The margin for error is zero, and every minute of the timeline is a contract."
-  },
-};
-
-// ---------- EXPERIENCE DECK DATA ----------
-// Career chapters, most recent first. The deck reads as a tape — start on
-// "Now," scrub backward through the chapters. Replace dates/lines/stats with
-// real values when ready; the deck regenerates itself from this array.
-const EXPERIENCE = [
-  {
-    num: '01', label: 'Now',
-    employer: 'GoBananas · New Delhi',
-    cover: IMG.dashboard,
-    role: 'Asst. Manager',
-    roleEm: 'IT & Ops',
-    year: '2025 — Present',
-    line: 'Business analysis and product documentation for GMS — the federation-grade games platform. Concurrent ops on NTPC Khelo India Archery and Somnath Swabhiman Parva.',
-    stats: [['Modules', '04'], ['Events', '02'], ['Status', 'Live']],
-  },
-  {
-    num: '02', label: 'Shipped',
-    employer: 'Sports Authority of Jharkhand · Ranchi',
-    cover: IMG.govBldg,
-    role: 'Project Lead',
-    roleEm: 'SAJHA Portal',
-    year: '2024 — 2025',
-    line: 'Led the digitalisation of a state sports authority — unified athletes, officials, federations and schemes into one navigable portal.',
-    stats: [['Modules', '04'], ['Docs', '04'], ['Outcome', 'Shipped']],
-  },
-  {
-    num: '03', label: 'Marquee',
-    employer: 'Paytm Insider · Multi-stadium',
-    cover: IMG.stadium,
-    role: 'Accreditation Manager',
-    roleEm: 'TATA IPL',
-    year: '2023 — 2024',
-    line: 'Two IPL seasons. Floor lead in ’23, strategy lead in ’24 — matrix-based access control across multi-stadium league operations.',
-    stats: [['Seasons', '02'], ['Scope', 'IPL'], ['Outcome', 'Delivered']],
-  },
-  {
-    num: '04', label: 'Policy',
-    employer: 'Sports Authority of Goa · Panaji',
-    cover: IMG.goa,
-    role: 'Project Officer',
-    roleEm: 'Accreditation & IT',
-    year: '2023',
-    line: '37th National Games — drafted the Games Accreditation Policy and authored the tender documents that ran the IT build across 28 disciplines.',
-    stats: [['Sports', '28'], ['Authored', 'Policy'], ['Outcome', 'Closed']],
-  },
-  {
-    num: '05', label: 'Genesis',
-    employer: 'NEST Academy',
-    cover: IMG.podium,
-    role: 'BMS',
-    roleEm: 'Sports Management',
-    year: '2021 — 2023',
-    line: 'Two years of sports management study with early on-ground assignments — Khelo India Youth Games (Tamil Nadu), Hyderabad E-Prix. The training ground.',
-    stats: [['Years', '02'], ['Events', '02'], ['Degree', 'BMS']],
-  },
+const ACCENTS = [
+  {id:'#d63919', name:'Vermilion'},
+  {id:'#0c6cf2', name:'Stadium Blue'},
+  {id:'#1f8a5b', name:'Field Green'},
+  {id:'#b08842', name:'Gold'},
+  {id:'#7c3aed', name:'Ultra'}
 ];
 
-// ---------- INIT ----------
-document.addEventListener('DOMContentLoaded', () => {
-  initCurtain();
-  initTitleChars();
-  initTheme();
-  initReveal();
-  initCounters();
-  initProjects();
-  initPolaroids();
-  initExperienceDeck();
-  initPass();
-  initCursor();
-  initParallax();
-});
+/* ============= CAREER DATA ============= */
+const ROLES = [
+  {
+    no:'06', when:'2025 — Present', where:'New Delhi',
+    role:'Asst. Manager — <em>IT & Ops</em>',
+    org:'GoBananas · Games Management System',
+    venue:'Delhi HQ', clock:'09:41 IST',
+    pts:[
+      'Authoring BRD / FRD / PRD for the GMS platform — federation registration, accreditation, tournament & venue modules.',
+      'Translating real-world sports ops into automation specs alongside engineering & design.',
+      'Bridging product, design, vendor & federation stakeholders end-to-end.'
+    ],
+    mini:[['<em>3</em>','Modules'],['<em>BRD</em>','+ FRD + PRD'],['<em>2025</em>','Joined']],
+    skills:['Figma','BRD','PRD','Jira','Claude'],
+    quote:'Translating a stadium concourse into a sprint board, one ticket at a time.',
+    type:'Product', icon:'product', live:true, rail:100,
+    cta:'Open project'
+  },
+  {
+    no:'05', when:'Jan 2026', where:'Ambaji, Gujarat',
+    role:'Venue <em>Lead</em> — Archery',
+    org:'NTPC Khelo India Archery — National Ranking',
+    venue:'Ambaji · Range', clock:'07:15 IST',
+    pts:[
+      'Set up archery range to World Archery / AAI international standards.',
+      'Owned venue vendor coordination, equipment audits and competition flow.',
+      'Coordinated officials, scoring, athlete services across the meet.'
+    ],
+    mini:[['<em>70</em><sup>m</sup>','Range'],['<em>AAI</em>','Compliant'],['<em>5</em>','Days']],
+    skills:['Vendor','AAI','Field Ops','SOPs'],
+    quote:'A national-ranking arrow leaves the bow because the buttress was square at dawn.',
+    type:'Ops', icon:'target', rail:84
+  },
+  {
+    no:'04', when:'Jan 2026', where:'Somnath, Gujarat',
+    role:'Accreditation <em>Officer</em>',
+    org:'Somnath Swabhiman Parva — 1000 Years',
+    venue:'Somnath · Coast', clock:'18:32 IST',
+    pts:[
+      'VIP accreditation & PM-protocol access control for a state-level cultural event.',
+      'Designed zone matrix, badge tiers and gate flow with security & state liaison.',
+      'Authored event SOPs and command-and-control protocol.'
+    ],
+    mini:[['<em>PM</em>','Protocol'],['<em>4</em>','Zones'],['<em>1k</em>','Years']],
+    skills:['Protocol','Security','State Liaison'],
+    quote:'PM-tier protocol compresses a year of decisions into hours — documentation is what holds.',
+    type:'Ops', icon:'shield', rail:68
+  },
+  {
+    no:'03', when:'2024 — 2025', where:'Jharkhand',
+    role:'Business <em>Analyst</em>',
+    org:'SAJHA — Sports Authority of Jharkhand',
+    venue:'Ranchi · Govt.', clock:'11:08 IST',
+    pts:[
+      'Documented end-to-end requirements for a unified state sports portal.',
+      'Mapped federation, athlete, coach and infrastructure workflows.',
+      'Coordinated with engineering teams to ship federation modules.'
+    ],
+    mini:[['<em>9</em><sup>/12</sup>','Fed.'],['<em>7+</em>','Flows'],['<em>BRD</em>','Authored']],
+    skills:['BA','Figma','Govt. Stack','Word'],
+    quote:'State sports administration runs on paper. The portal is the first time the paper has a memory.',
+    type:'BA', icon:'doc', rail:52
+  },
+  {
+    no:'02', when:'2023 — 2024', where:'Multi-stadium · India',
+    role:'Accreditation <em>Manager</em>',
+    org:'TATA IPL — Paytm Insider',
+    venue:'Wankhede / Eden / Chinnaswamy', clock:'19:30 IST',
+    pts:[
+      'Multi-stadium accreditation operations across the IPL season.',
+      'Owned ground access control, vendor printing, real-time issue resolution.',
+      'Built escalation paths with security, broadcast and franchise stakeholders.'
+    ],
+    mini:[['<em>6</em>','Venues'],['<em>10k+</em>','Badges'],['<em>99.7</em><sup>%</sup>','Uptime']],
+    skills:['Ops','Security','Vendor','Field Ops'],
+    quote:'An IPL stadium is a moving city. My job was to make sure the gates agreed with each other.',
+    type:'Ops', icon:'badge', marquee:true, rail:36
+  },
+  {
+    no:'01', when:'2023', where:'Goa',
+    role:'Accreditation <em>Policy</em>',
+    org:'37th National Games, Goa — Sports Authority of Goa',
+    venue:'Panaji · SAG', clock:'10:20 IST',
+    pts:[
+      'Drafted accreditation policy and tender documentation.',
+      'Integrated IT systems with on-ground accreditation processes.',
+      'Coordinated 30+ disciplines, federations and state ministries.'
+    ],
+    mini:[['<em>30</em><sup>+</sup>','Disciplines'],['<em>1</em>','Policy'],['<em>9</em><sup>/9</sup>','Sign-offs']],
+    skills:['Policy','Tender','Govt.','SOPs'],
+    quote:'A national-games policy doesn\u2019t end at the games — it becomes precedent for every meet after.',
+    type:'Policy', icon:'policy', rail:20
+  }
+];
 
-// ---------- CURTAIN INTRO ----------
+/* ============= PROJECT DATA (modal) ============= */
+const PROJECTS = {
+  gms:{
+    name:'Games Management System', client:'GoBananas', year:'2025 — Present',
+    pill:'01 · Now', role:'Product & Business Analysis',
+    title:'Games <em>Management</em> System',
+    strap:'A platform built to run real federations and real events — from registration through accreditation, draw, scoring and reporting.',
+    overview:'Authoring the BRD, FRD and PRD for a single platform that replaces the spreadsheet-and-WhatsApp stack federations rely on. The work moves between user research with federation operators, wireframing flows in Figma, and writing automation specs engineering can implement without ambiguity.',
+    why:'Why this matters · Federations spend half their event time chasing data. A single source of truth across registration, accreditation and competition unlocks better scheduling, faster results and credible reporting.',
+    hud:[['3','Modules'],['BRD<sup>+2</sup>','Spec set'],['<em>Live</em>','Status']],
+    sealNo:'GMS', phases:[1,1,1,1,0,0],
+    kvs:[
+      ['Role','Product · BA · UX'],
+      ['Modules','Registration · Accreditation · Tournament'],
+      ['Status','Active development'],
+      ['Stakeholders','GMS team · Federations'],
+      ['Outputs','BRD · FRD · PRD · Figma wireframes']
+    ],
+    gallery:[
+      {cap:'Registration flow', kind:'gms-1'},
+      {cap:'Accreditation matrix', kind:'gms-2'},
+      {cap:'Draw board', kind:'gms-3'},
+      {cap:'Scoring console', kind:'gms-4'},
+      {cap:'Reports', kind:'gms-5'}
+    ],
+    specs:[
+      ['Domain','Federation operations'],
+      ['Users','Federation staff · Officials · Athletes'],
+      ['Scale','National events · Multi-discipline'],
+      ['Approach','Modular · API-first'],
+      ['Documentation','Living BRD/FRD/PRD set']
+    ],
+    chips:['Figma','Jira','Claude Code','OpenClaw','MS Word','Notion','Codex','Stitch'],
+    bullets:[
+      '<b>Authored</b> a 3-document spec set (BRD / FRD / PRD) used by engineering and design.',
+      '<b>Wireframed</b> high-fidelity flows for registration, accreditation and tournament.',
+      '<b>Scoped</b> the accreditation module end-to-end with zone, role & access matrices.',
+      '<b>Coordinated</b> design reviews, sprint planning and feature roadmaps.'
+    ],
+    bars:[
+      ['Documentation coverage','94%',94],
+      ['Stakeholder alignment','88%',88],
+      ['Module readiness','71%',71]
+    ]
+  },
+  sajha:{
+    name:'SAJHA Sports Portal', client:'Sports Authority of Jharkhand', year:'2024 — 2025',
+    pill:'02 · Shipped', role:'Business Analyst',
+    title:'<em>SAJHA</em> Sports Portal',
+    strap:'A unified state sports portal — federations, athletes, coaches and infrastructure under one roof.',
+    overview:'Owned business analysis for a state-government portal that brings disparate federation processes into one digital system. Translated the lived reality of state sports administration into requirements that engineering could implement.',
+    why:'Why this matters · State sports bodies coordinate hundreds of federations on paper. A unified portal is the difference between knowing your athlete pool and guessing it.',
+    hud:[['9<sup>/12</sup>','Fed.'],['7<sup>+</sup>','Flows'],['<em>Live</em>','Statewide']],
+    sealNo:'SAJ', phases:[1,1,1,1,1,0],
+    kvs:[
+      ['Role','Lead Business Analyst'],
+      ['Sector','State Government'],
+      ['Lifecycle','Discovery → Delivery'],
+      ['Modules','7+ federation workflows'],
+      ['Compliance','Govt. of Jharkhand standards']
+    ],
+    gallery:[
+      {cap:'Athlete profile', kind:'sajha-1'},
+      {cap:'Federation dashboard', kind:'sajha-2'},
+      {cap:'Coach registry', kind:'sajha-3'},
+      {cap:'Venue infrastructure', kind:'sajha-4'},
+      {cap:'Reports & analytics', kind:'sajha-5'}
+    ],
+    specs:[
+      ['Client','Sports Authority of Jharkhand'],
+      ['Stakeholders','Federations · Coaches · Athletes · Officers'],
+      ['Scope','Statewide rollout'],
+      ['Format','Web portal · multi-role'],
+      ['Documentation','BRD / FRD / Tender alignment']
+    ],
+    chips:['MS Word','Excel','Jira','Figma','Visily','PowerPoint','Govt. Stack'],
+    bullets:[
+      '<b>Mapped</b> 7+ federation workflows into a unified information architecture.',
+      '<b>Authored</b> BRD/FRD aligned with government tender language.',
+      '<b>Drove</b> requirement workshops with sport federations and state officials.',
+      '<b>Bridged</b> engineering & policy stakeholders through delivery.'
+    ],
+    bars:[
+      ['Federations onboarded','9 / 12',75],
+      ['Workflow digitization','81%',81],
+      ['Officer adoption','67%',67]
+    ]
+  },
+  ipl:{
+    name:'TATA IPL Accreditation', client:'Paytm Insider · BCCI', year:'2023 — 2024',
+    pill:'03 · Marquee', role:'Accreditation Manager',
+    title:'TATA IPL <em>Accreditation</em>',
+    strap:'Multi-stadium access control across the IPL season — every badge, gate, zone and exception.',
+    overview:'Ran accreditation operations across multiple IPL venues. Built the systems and SOPs that determined who could go where and when, working alongside franchise, broadcast, security and venue ops teams under real-time pressure.',
+    why:'Why this matters · An IPL stadium is a moving city. Accreditation is the policy layer that keeps it from collapsing — get one zone wrong and a broadcast feed dies.',
+    hud:[['6','Venues'],['10k<sup>+</sup>','Badges'],['99.7<sup>%</sup>','Uptime']],
+    sealNo:'IPL', phases:[1,1,1,1,1,1],
+    kvs:[
+      ['Role','Accreditation Manager'],
+      ['Stadiums','Multi-venue · National'],
+      ['Stakeholders','BCCI · Franchises · Broadcast'],
+      ['Real-time decisions','Daily'],
+      ['Volume','Thousands of badges / venue']
+    ],
+    gallery:[
+      {cap:'Stadium aerial', kind:'ipl-1'},
+      {cap:'Badge zones', kind:'ipl-2'},
+      {cap:'Gate ops', kind:'ipl-3'},
+      {cap:'Floodlit field', kind:'ipl-4'},
+      {cap:'Command room', kind:'ipl-5'}
+    ],
+    specs:[
+      ['Scale','IPL season · Multi-stadium'],
+      ['Functions','Access control · Real-time ops · Vendor'],
+      ['Pressure','Match day, no margin'],
+      ['Coordination','Security · Broadcast · Franchise'],
+      ['Outputs','Zone matrices · SOPs · Escalations']
+    ],
+    chips:['Excel','Word','PowerPoint','Vendor Mgmt','Govt. Liaison','Field Ops'],
+    bullets:[
+      '<b>Managed</b> accreditation operations across multiple IPL stadiums.',
+      '<b>Built</b> zone matrices, badge tiers and gate-level flow protocols.',
+      '<b>Resolved</b> real-time access escalations on match days.',
+      '<b>Coordinated</b> printing, vendor lifecycle and audit reporting.'
+    ],
+    bars:[
+      ['Match-day uptime','99.7%',99],
+      ['Issue resolution SLA','< 4 min',92],
+      ['Stakeholder NPS','High',88]
+    ]
+  },
+  ng:{
+    name:'37th National Games · Goa', client:'Sports Authority of Goa', year:'2023',
+    pill:'04 · Policy', role:'Accreditation Policy & IT',
+    title:'37th National <em>Games</em>, Goa',
+    strap:'Drafted accreditation policy, tender documentation and IT integration for India\'s largest multi-sport event.',
+    overview:'Authored the accreditation policy that governed access for 30+ disciplines across the games. Wrote tender documents, integrated IT systems with on-ground accreditation, and coordinated between state ministries, federations and operations vendors.',
+    why:'Why this matters · National Games is the rehearsal for the Olympic dream. Policy here becomes precedent for every multi-sport event India runs next.',
+    hud:[['30<sup>+</sup>','Disciplines'],['1','Policy'],['9<sup>/9</sup>','Sign-offs']],
+    sealNo:'NG', phases:[1,1,1,1,1,1],
+    kvs:[
+      ['Role','Policy Author · IT Coordinator'],
+      ['Disciplines','30+'],
+      ['Host','Sports Authority of Goa'],
+      ['Doc set','Policy · Tender · SOP'],
+      ['Coordination','Inter-ministry']
+    ],
+    gallery:[
+      {cap:'Opening ceremony', kind:'ng-1'},
+      {cap:'Policy document', kind:'ng-2'},
+      {cap:'Venue map', kind:'ng-3'},
+      {cap:'IT integration', kind:'ng-4'},
+      {cap:'Tender review', kind:'ng-5'}
+    ],
+    specs:[
+      ['Format','Multi-sport · 30+ disciplines'],
+      ['Authoring','Policy · Tender · SOP'],
+      ['Integration','Accreditation IT systems'],
+      ['Coordination','SAG · Federations · Vendors'],
+      ['Outputs','Living policy doc · Procurement set']
+    ],
+    chips:['MS Word','Excel','Policy Frameworks','Govt. Tendering','SOP Authoring'],
+    bullets:[
+      '<b>Drafted</b> end-to-end accreditation policy adopted for the games.',
+      '<b>Wrote</b> tender documents aligned with state procurement.',
+      '<b>Integrated</b> on-ground accreditation with IT backend.',
+      '<b>Liaised</b> across ministries, federations and venue ops.'
+    ],
+    bars:[
+      ['Policy adoption','100%',100],
+      ['Tender clearance','First pass',92],
+      ['Cross-ministry sign-off','9/9',100]
+    ]
+  },
+  archery:{
+    name:'Khelo India Archery — Ambaji', client:'NTPC Khelo India', year:'Jan 2026',
+    pill:'05 · 2026', role:'Venue Lead',
+    title:'Archery National <em>Ranking</em>',
+    strap:'Setting up a competition archery venue in Ambaji, Gujarat to international AAI standards.',
+    overview:'Led venue setup for the NTPC Khelo India Archery National Ranking tournament. Owned vendor coordination, equipment audits, range calibration and competition flow to World Archery / AAI standards.',
+    why:'Why this matters · A national ranking event determines who shoots for India next. The range has to be precise, the scoring credible and the timing bulletproof.',
+    hud:[['70<sup>m</sup>','Range'],['AAI','Std.'],['<em>Soon</em>','Status']],
+    sealNo:'AMB', phases:[1,1,1,1,0,0],
+    kvs:[
+      ['Role','Venue Lead'],
+      ['Discipline','Archery (Recurve · Compound)'],
+      ['Standard','World Archery · AAI'],
+      ['Location','Ambaji, Gujarat'],
+      ['Year','January 2026']
+    ],
+    gallery:[
+      {cap:'Range overview', kind:'archery-1'},
+      {cap:'Target setup', kind:'archery-2'},
+      {cap:'Athlete bay', kind:'archery-3'},
+      {cap:'Scoring booth', kind:'archery-4'},
+      {cap:'Calibration', kind:'archery-5'}
+    ],
+    specs:[
+      ['Distances','18m / 30m / 50m / 70m'],
+      ['Equipment','Targets · Stands · Buttresses · Nets'],
+      ['Compliance','AAI · WA standards'],
+      ['Functions','Vendor · Officials · Athlete services'],
+      ['Outputs','Range layout · Audit log']
+    ],
+    chips:['Vendor Mgmt','AAI Standards','Field Ops','Excel','SOP Writing'],
+    bullets:[
+      '<b>Calibrated</b> archery range to AAI international standards.',
+      '<b>Owned</b> vendor onboarding, equipment audits and on-field setup.',
+      '<b>Coordinated</b> officials, scoring teams and athlete services.',
+      '<b>Authored</b> competition flow SOPs for the meet.'
+    ],
+    bars:[
+      ['Range compliance','AAI ✓',100],
+      ['Setup days saved','-2',82],
+      ['Vendor SLA','On-time',95]
+    ]
+  },
+  somnath:{
+    name:'Somnath Swabhiman Parva', client:'1000 Years of Somnath Mandir', year:'Jan 2026',
+    pill:'06 · PM Protocol', role:'Accreditation & Event Flow',
+    title:'Somnath <em>Swabhiman</em> Parva',
+    strap:'VIP accreditation, PM-protocol access control and event flow for a state-level cultural event.',
+    overview:'Owned accreditation and event-flow design for the 1000-year cultural commemoration at Somnath. Designed the badge tier system, gate-level access logic and command protocols for an event hosted by the Prime Minister.',
+    why:'Why this matters · A PM event compresses years of crowd, security and protocol decisions into hours. Documentation is the only thing that holds.',
+    hud:[['PM','Tier'],['4','Zones'],['<em>1k</em>','Years']],
+    sealNo:'SOM', phases:[1,1,1,1,0,0],
+    kvs:[
+      ['Role','Accreditation · Event flow'],
+      ['Format','State cultural event'],
+      ['Protocol','PM-tier'],
+      ['Location','Somnath, Gujarat'],
+      ['Year','January 2026']
+    ],
+    gallery:[
+      {cap:'Temple at twilight', kind:'somnath-1'},
+      {cap:'Stage build', kind:'somnath-2'},
+      {cap:'VIP badge', kind:'somnath-3'},
+      {cap:'Gate flow', kind:'somnath-4'},
+      {cap:'Command room', kind:'somnath-5'}
+    ],
+    specs:[
+      ['Audience','Federation · State · PM-tier'],
+      ['Zones','FOP · VIP · Stage · Press'],
+      ['Coordination','State · Security · Cultural'],
+      ['Outputs','Zone matrix · SOPs · Badge tiers'],
+      ['Sensitivity','High protocol']
+    ],
+    chips:['Word','Excel','Protocol','Govt. Liaison','Security Liaison','Field Ops'],
+    bullets:[
+      '<b>Designed</b> VIP accreditation tiers and zone matrix.',
+      '<b>Authored</b> event-flow & command SOPs for the cultural program.',
+      '<b>Coordinated</b> state agencies, security and cultural production.',
+      '<b>Ran</b> rehearsal & dry-run cycles to surface gate-flow risks.'
+    ],
+    bars:[
+      ['Protocol compliance','100%',100],
+      ['Gate-flow incidents','0 critical',96],
+      ['Cross-agency sign-off','All-clear',100]
+    ]
+  }
+};
+
+/* ============= CURTAIN ============= */
 function initCurtain(){
-  const curtain = document.getElementById('curtain');
-  if (!curtain) return;
-  document.body.classList.add('lock');
-  setTimeout(() => {
-    curtain.classList.add('gone');
-    document.body.classList.remove('lock');
-  }, 2600);
+  const c = document.getElementById('curtain');
+  if(!c) return;
+  setTimeout(() => c.classList.add('gone'), 2000);
 }
 
-// ---------- TITLE CHARACTER REVEAL ----------
-function initTitleChars(){
-  const h1 = document.querySelector('.cover h1');
-  if (!h1) return;
-  const walk = (node) => {
-    if (node.nodeType === Node.TEXT_NODE){
-      const frag = document.createDocumentFragment();
-      [...node.textContent].forEach(ch => {
-        if (ch === ' '){ frag.appendChild(document.createTextNode(' ')); return; }
-        const s = document.createElement('span');
-        s.className = 'char'; s.textContent = ch;
-        frag.appendChild(s);
-      });
-      node.parentNode.replaceChild(frag, node);
-    } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('char')){
-      [...node.childNodes].forEach(walk);
-    }
+/* ============= SCROLL PROGRESS ============= */
+function initScrollProg(){
+  const bar = document.getElementById('scrollProg');
+  if(!bar) return;
+  const update = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (h.scrollTop / max * 100) + '%';
   };
-  [...h1.childNodes].forEach(walk);
-  const chars = h1.querySelectorAll('.char');
-  chars.forEach((c, i) => c.style.animationDelay = (2.6 + i * 0.04) + 's');
+  window.addEventListener('scroll', update, {passive:true});
+  update();
 }
 
-// ---------- THEME TOGGLE ----------
+/* ============= THEME ============= */
 function initTheme(){
   const btn = document.getElementById('themeBtn');
-  if (!btn) return;
-  btn.addEventListener('click', () => {
-    const dark = document.body.getAttribute('data-theme') === 'dark';
-    document.body.setAttribute('data-theme', dark ? 'paper' : 'dark');
-    btn.querySelector('.label').textContent = dark ? 'Floodlights · On' : 'Floodlights · Off';
-  });
-}
-
-// ---------- REVEAL ON SCROLL ----------
-function initReveal(){
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: .12 });
-  document.querySelectorAll('.section, .stat, .proj, .t-row, .tk-group, .feature').forEach(el => {
-    el.classList.add('reveal'); io.observe(el);
-  });
-}
-
-// ---------- ANIMATED COUNTERS ----------
-function initCounters(){
-  const counters = document.querySelectorAll('[data-count]');
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const target = parseInt(el.dataset.count, 10);
-      const dur = 1400;
-      const t0 = performance.now();
-      const tick = (t) => {
-        const p = Math.min(1, (t - t0)/dur);
-        const v = Math.round(target * (1 - Math.pow(1 - p, 3)));
-        el.textContent = p < 1 ? String(v).padStart(2, '0') : String(target);
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-      io.unobserve(el);
-    });
-  }, { threshold: .4 });
-  counters.forEach(c => io.observe(c));
-}
-
-// ---------- POLAROIDS ----------
-function initPolaroids(){
-  const pols = document.querySelectorAll('.poloroid');
-  const projMap = {
-    ipl:     { src: IMG.stadium, cap: 'IPL · Floodlit' },
-    archery: { src: IMG.archery, cap: 'Archery · Ambaji' },
-    somnath: { src: IMG.temple,  cap: 'Somnath · 2026' },
-    gms:     { src: IMG.dashboard, cap: 'GMS · Spec' },
-    sajha:   { src: IMG.govBldg, cap: 'SAJHA · Jharkhand' },
-    ng:      { src: IMG.goa, cap: 'National Games · Goa' },
+  if(!btn) return;
+  const lbl = btn.querySelector('.label');
+  const apply = (t) => {
+    document.body.setAttribute('data-theme', t);
+    lbl.textContent = t === 'paper' ? 'Floodlights · On' : 'Paper · On';
+    TWEAKS.theme = t;
   };
-  pols.forEach(p => {
-    const data = projMap[p.dataset.project] || { src: IMG.stadium, cap: 'Field of Play' };
-    const img = p.querySelector('.ph');
-    if (img) img.style.backgroundImage = `url(${data.src})`;
-    const cap = p.querySelector('.cap'); if (cap) cap.textContent = data.cap;
+  btn.addEventListener('click', () => {
+    const cur = document.body.getAttribute('data-theme') || 'paper';
+    apply(cur === 'paper' ? 'floodlights' : 'paper');
+  });
+  apply(TWEAKS.theme || 'paper');
+}
+
+/* ============= MAGNETIC BUTTONS ============= */
+function initMagnetic(){
+  const els = document.querySelectorAll('[data-magnetic]');
+  els.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width/2;
+      const y = e.clientY - r.top - r.height/2;
+      el.style.transform = `translate(${x*.18}px, ${y*.3}px)`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = '';
+    });
   });
 }
 
-// ---------- PROJECT GRID & ENVIRONMENT MODAL ----------
-function initProjects(){
-  const tiles = document.querySelectorAll('.proj');
-  tiles.forEach(tile => {
-    const key = tile.dataset.key;
-    const proj = PROJECTS[key]; if (!proj) return;
-    const img = tile.querySelector('.cover-img');
-    if (img) img.style.backgroundImage = `url(${proj.cover})`;
-    tile.addEventListener('click', () => openEnv(key));
+/* ============= STAT COUNTERS ============= */
+function initStats(){
+  const els = document.querySelectorAll('[data-count]');
+  const animate = (el) => {
+    const target = +el.dataset.count;
+    const dur = 1400;
+    const start = performance.now();
+    const tick = (t) => {
+      const p = Math.min(1, (t-start)/dur);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = String(Math.round(target * eased)).padStart(2,'0');
+      if(p<1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        animate(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:.3});
+  els.forEach(el => io.observe(el));
+}
+
+/* ============= REVEAL ============= */
+function initReveal(){
+  const els = document.querySelectorAll('[data-reveal]');
+  if(!els.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  els.forEach(el => io.observe(el));
+}
+
+function tagReveals(){
+  ['.cover-grid','.section-tag','.section-h','.section-lede','.manifesto','.stats','.project-bar','.project-grid','.deck-wrap','.toolkit','.contact','.colophon'].forEach(s => {
+    document.querySelectorAll(s).forEach(el => el.setAttribute('data-reveal',''));
   });
-
-  const env = document.getElementById('env');
-  env.addEventListener('click', e => { if (e.target === env) closeEnv(); });
-  document.getElementById('envClose').addEventListener('click', closeEnv);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEnv(); });
 }
 
-function openEnv(key){
-  const proj = PROJECTS[key]; if (!proj) return;
-  const env = document.getElementById('env');
-  env.querySelector('.crumbs .name').textContent = proj.name;
-  env.querySelector('.crumbs .client').textContent = proj.client;
-  env.querySelector('.heroimg').style.backgroundImage = `url(${proj.cover})`;
-  env.querySelector('.env-hero .kicker .pill').textContent = proj.pill;
-  env.querySelector('.env-hero .kicker .role').textContent = proj.role;
-  env.querySelector('.env-hero .kicker .year').textContent = proj.year;
-  env.querySelector('.env-hero h2').innerHTML = proj.nameHTML;
-  env.querySelector('.env-hero .strap').textContent = proj.strap;
-
-  const ovBody = env.querySelector('.ov-grid .ov-body');
-  ovBody.innerHTML = proj.overview.map(p => `<p>${p}</p>`).join('');
-  const why = env.querySelector('.ov-grid .why-q');
-  why.innerHTML = `<h3>Why <em>this</em> project matters</h3><p>${proj.why}</p>`;
-  const sideKv = env.querySelector('.ov-side .kvs');
-  sideKv.innerHTML = proj.specs.map(([k,v]) => `<div class="kv"><span>${k}</span><span>${v}</span></div>`).join('');
-
-  const gal = env.querySelector('.gallery');
-  gal.innerHTML = proj.gallery.map(g => `
-    <div class="g-cell ${g.cls}">
-      <div class="gi" style="background-image:url(${g.src})"></div>
-      <div class="cap">${g.cap}</div>
-    </div>
-  `).join('');
-
-  const specL = env.querySelector('.spec-list');
-  specL.innerHTML = proj.specs.map(([k,v]) => `<li><span class="k">${k}</span><span class="v">${v}</span></li>`).join('');
-  const chipsWrap = env.querySelector('.chips-wrap');
-  chipsWrap.innerHTML = Object.entries(proj.chips).map(([g, list]) => `
-    <div style="margin-bottom:22px">
-      <h5 style="font-family:'Instrument Serif',serif; font-style:italic; font-size:22px; margin:0 0 10px; font-weight:400;">${g}</h5>
-      <div class="chips">${list.map(t => `<span>${t}</span>`).join('')}</div>
-    </div>
-  `).join('');
-
-  const bulletList = env.querySelector('.bullet-list');
-  bulletList.innerHTML = proj.bullets.map(b => `<li>${b}</li>`).join('');
-  const bars = env.querySelector('.bars');
-  bars.innerHTML = proj.outcomes.map(([n, v]) => `
-    <div class="bar">
-      <div class="bh"><span class="name">${n}</span><span class="v">${String(v).padStart(2,'0')}%</span></div>
-      <div class="track"><div class="fill" style="--w:${v}%"></div></div>
-    </div>
-  `).join('');
-
-  env.querySelectorAll('.env-tab').forEach((t,i) => t.classList.toggle('active', i===0));
-  env.querySelectorAll('.tab-pane').forEach((p,i) => p.classList.toggle('active', i===0));
-
-  env.classList.add('open');
-  document.body.classList.add('lock');
-}
-
-function closeEnv(){
-  const env = document.getElementById('env');
-  env.classList.remove('open');
-  document.body.classList.remove('lock');
-}
-
-// tabs
-document.addEventListener('click', e => {
-  const tab = e.target.closest('.env-tab');
-  if (!tab) return;
-  const env = tab.closest('.env');
-  if (!env) return;
-  const target = tab.dataset.tab;
-  env.querySelectorAll('.env-tab').forEach(t => t.classList.toggle('active', t === tab));
-  env.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === target));
-  env.querySelector('.env-body').scrollTo({ top: env.querySelector('.env-tabs').offsetTop, behavior:'smooth' });
-});
-
-// ---------- EXPERIENCE DECK ----------
-function initExperienceDeck(){
+/* ============= CAREER DECK ============= */
+function initDeck(){
   const stage = document.querySelector('.deck-stage');
-  const dotsHost = document.querySelector('.deck-dots');
-  if (!stage || !dotsHost) return;
+  const dotsWrap = document.querySelector('.deck-dots');
+  const prevBtn = document.querySelector('.deck-prev');
+  const nextBtn = document.querySelector('.deck-next');
+  const counter = document.querySelector('.deck-counter b');
+  const nowEmp = document.querySelector('.deck-now-emp');
+  if(!stage) return;
 
-  const total = EXPERIENCE.length;
-  let active = 0;
+  let idx = 0;
 
-  EXPERIENCE.forEach((e, i) => {
-    const card = document.createElement('article');
-    card.className = 'deck-card';
-    card.dataset.index = i;
-    card.innerHTML = `
-      <div class="dc-bg" style="background-image:url(${e.cover})"></div>
-      <div class="dc-tint"></div>
-      <div class="dc-stripe">
-        <span class="dc-num">${e.num} · ${e.label}</span>
-        <span>${e.year}</span>
+  // Build cards
+  const typeIcons = {
+    product:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="10" height="10"/><path d="M2 6h10M6 2v10"/></svg>',
+    target:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5"/><circle cx="7" cy="7" r="2.5"/><circle cx="7" cy="7" r="0.7" fill="currentColor"/></svg>',
+    shield:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 1.5 L12 3.5 V7.5 C12 10 7 12.5 7 12.5 C7 12.5 2 10 2 7.5 V3.5 Z"/></svg>',
+    doc:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 1.5 H9 L11.5 4 V12.5 H3 Z"/><path d="M9 1.5 V4 H11.5"/><path d="M4.5 7 H9.5 M4.5 9 H9.5"/></svg>',
+    badge:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="1.5" width="8" height="11" rx="1"/><circle cx="7" cy="5.5" r="1.5"/><path d="M4.5 9.5 H9.5"/></svg>',
+    policy:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 2.5 H11.5 V11.5 H2.5 Z"/><path d="M5 2.5 V11.5 M9 2.5 V11.5"/><path d="M5 5 H11.5 M5 8 H11.5"/></svg>'
+  };
+
+  ROLES.forEach((r, i) => {
+    const c = document.createElement('div');
+    c.className = 'deck-card';
+    c.dataset.idx = i;
+    const liveDot = r.live
+      ? '<span class="dot"></span><span>LIVE</span><span class="venue">· '+r.venue+'</span>'
+      : '<span class="dot" style="background:var(--mute-2);animation:none"></span><span>ARCHIVE</span><span class="venue">· '+r.venue+'</span>';
+    c.innerHTML = `
+      <div class="dc-bcast">
+        ${liveDot}
+        <span class="clock">${r.clock}</span>
+        <span class="ix">FILE · ${r.no}/06</span>
       </div>
-      <div class="dc-body">
-        <div class="dc-employer">${e.employer}</div>
-        <h3 class="dc-role">${e.role} <em>· ${e.roleEm}</em></h3>
-        <div class="dc-line">${e.line}</div>
-      </div>
-      <div class="dc-foot">
-        ${e.stats.map(([k,v]) => `<div class="dc-stat">${k}<b>${v}</b></div>`).join('')}
+      <div class="dc-pad">
+        <span class="dc-no">${r.no}</span>
+        <div class="dc-head">
+          <span class="dc-when">${r.when} · ${r.where}</span>
+          <span class="dc-type">${typeIcons[r.icon] || ''}${r.type}</span>
+        </div>
+        <h3 class="dc-role">${r.role}</h3>
+        <div class="dc-org">${r.org}</div>
+        <div class="dc-mini">
+          ${r.mini.map(([v,k]) => `<div><div class="v">${v}</div><div class="k">${k}</div></div>`).join('')}
+        </div>
+        <div class="dc-quote">“${r.quote}”</div>
+        <div class="dc-skills">${r.skills.map(s => `<span>${s}</span>`).join('')}</div>
+        <div class="dc-foot">
+          <span class="seal">${r.marquee ? 'Marquee · IPL' : (r.live ? 'Now Playing' : 'Closed Out')}</span>
+          <span class="cta">${r.cta || 'Archive entry'}
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg>
+          </span>
+        </div>
+        <div class="dc-rail" style="--rail:${r.rail}%"></div>
       </div>
     `;
-    card.addEventListener('click', () => {
-      if (i !== active) setActive(i);
-    });
-    stage.appendChild(card);
+    stage.appendChild(c);
 
     const dot = document.createElement('button');
-    dot.className = 'deck-dot';
-    dot.setAttribute('aria-label', `Chapter ${e.num} — ${e.employer}`);
-    dot.addEventListener('click', () => setActive(i));
-    dotsHost.appendChild(dot);
+    dot.setAttribute('aria-label', `Role ${i+1}`);
+    dot.addEventListener('click', () => { idx = i; render(); });
+    dotsWrap.appendChild(dot);
   });
 
-  const counter = document.querySelector('.deck-counter b');
-  const counterSub = document.querySelector('.deck-counter sub');
-  const nowEmp = document.querySelector('.deck-now-emp');
-  if (counterSub) counterSub.textContent = `/ ${String(total).padStart(2, '0')}`;
+  const cards = [...stage.querySelectorAll('.deck-card')];
+  const dots = [...dotsWrap.querySelectorAll('button')];
 
-  function setActive(i){
-    active = ((i % total) + total) % total;
-    const cards = stage.querySelectorAll('.deck-card');
-    cards.forEach((c, idx) => {
-      const off = idx - active;
-      c.style.setProperty('--off', off);
-      c.style.setProperty('--absoff', Math.abs(off));
-      c.classList.toggle('active', off === 0);
-      c.classList.toggle('hidden', Math.abs(off) > 3);
+  function render(){
+    cards.forEach((c, i) => {
+      const off = i - idx;
+      const abs = Math.abs(off);
+      let tx = off * 64;
+      let ty = abs * 14;
+      let rot = off * -4;
+      let scale = 1 - Math.min(abs, 3) * 0.07;
+      let z = 10 - abs;
+      let op = abs > 2 ? 0 : 1;
+      let filter = abs > 0 ? `blur(${abs*0.6}px)` : 'none';
+      c.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${scale})`;
+      c.style.zIndex = z;
+      c.style.opacity = op;
+      c.style.filter = filter;
+      c.style.pointerEvents = abs === 0 ? 'auto' : 'auto';
     });
-    dotsHost.querySelectorAll('.deck-dot').forEach((d, idx) => d.classList.toggle('on', idx === active));
-    if (counter) counter.textContent = String(active + 1).padStart(2, '0');
-    if (nowEmp) nowEmp.textContent = EXPERIENCE[active].employer;
+    dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+    counter.textContent = String(idx+1).padStart(2,'0');
+    nowEmp.textContent = ROLES[idx].org.split('·')[0].trim();
   }
 
-  document.querySelector('.deck-prev')?.addEventListener('click', () => setActive(active - 1));
-  document.querySelector('.deck-next')?.addEventListener('click', () => setActive(active + 1));
-
-  window.addEventListener('keydown', e => {
-    if (document.body.classList.contains('lock')) return;
-    if (document.getElementById('env')?.classList.contains('open')) return;
-    if (e.key === 'ArrowLeft') setActive(active - 1);
-    else if (e.key === 'ArrowRight') setActive(active + 1);
+  // Click side card to focus
+  cards.forEach((c, i) => {
+    c.addEventListener('click', (e) => {
+      if(i !== idx && !c._dragging){ idx = i; render(); }
+    });
   });
 
-  let startX = 0, dragging = false;
-  const begin = (x) => { startX = x; dragging = true; };
-  const end = (x) => {
-    if (!dragging) return;
-    dragging = false;
-    const dx = x - startX;
-    if (Math.abs(dx) > 50) setActive(active + (dx < 0 ? 1 : -1));
-  };
-  stage.addEventListener('mousedown', e => begin(e.clientX));
-  window.addEventListener('mouseup', e => end(e.clientX));
-  stage.addEventListener('touchstart', e => begin(e.touches[0].clientX), { passive: true });
-  stage.addEventListener('touchend', e => end(e.changedTouches[0].clientX));
+  // Controls
+  prevBtn.addEventListener('click', () => { idx = (idx - 1 + ROLES.length) % ROLES.length; render(); });
+  nextBtn.addEventListener('click', () => { idx = (idx + 1) % ROLES.length; render(); });
 
-  setActive(0);
+  // Keys
+  window.addEventListener('keydown', (e) => {
+    if(document.querySelector('.env.open')) return;
+    if(e.key === 'ArrowLeft'){ idx = (idx - 1 + ROLES.length) % ROLES.length; render(); }
+    if(e.key === 'ArrowRight'){ idx = (idx + 1) % ROLES.length; render(); }
+  });
+
+  // Drag
+  let down = false, sx = 0, dragCard = null;
+  stage.addEventListener('pointerdown', (e) => {
+    const c = e.target.closest('.deck-card');
+    if(!c || +c.dataset.idx !== idx) return;
+    down = true; sx = e.clientX; dragCard = c;
+    c.classList.add('drag');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if(!down) return;
+    const dx = e.clientX - sx;
+    dragCard.style.transform = `translate(${dx}px, 0) rotate(${dx*0.04}deg)`;
+  });
+  window.addEventListener('pointerup', (e) => {
+    if(!down) return;
+    const dx = e.clientX - sx;
+    if(dragCard) dragCard.classList.remove('drag');
+    down = false;
+    if(Math.abs(dx) > 80){
+      if(dx < 0) idx = (idx + 1) % ROLES.length;
+      else idx = (idx - 1 + ROLES.length) % ROLES.length;
+    }
+    render();
+    dragCard = null;
+  });
+
+  render();
 }
 
-// ---------- ACCRED PASS ----------
+/* ============= PASS FLIP ============= */
 function initPass(){
   const pass = document.getElementById('pass');
-  if (!pass) return;
+  if(!pass) return;
   pass.addEventListener('click', () => pass.classList.toggle('flipped'));
 }
 
-// ---------- CURSOR FOLLOWER ----------
-function initCursor(){
-  if (window.matchMedia('(hover: none)').matches) return;
-  const c = document.createElement('div'); c.className = 'cur';
-  document.body.appendChild(c);
-  let x=window.innerWidth/2, y=window.innerHeight/2, tx=x, ty=y;
-  window.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-  const tick = () => {
-    x += (tx - x) * .22; y += (ty - y) * .22;
-    c.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%) scale(${c.classList.contains('big')?4:1})`;
-    requestAnimationFrame(tick);
+/* ============= GALLERY IMAGE BG ============= */
+function galleryBg(kind){
+  // CSS gradient placeholders themed per project
+  const themes = {
+    'gms':['#1a1410','#0a0805','#ffb547'],
+    'sajha':['#0e3a2a','#08231a','#f4c430'],
+    'ipl':['#3a1606','#14060a','#ffb547'],
+    'ng':['#0a283d','#082030','#40aab4'],
+    'archery':['#14110a','#3a1010','#f4d56e'],
+    'somnath':['#3a1a08','#1a0a04','#ffb547']
   };
-  tick();
-  document.querySelectorAll('a, button, .proj, .pass, .role-chip, .c-link, .poloroid, .env-tab, .tk-list span, .deck-card, .deck-dot, .deck-btn').forEach(el => {
-    el.addEventListener('mouseenter', () => c.classList.add('big'));
-    el.addEventListener('mouseleave', () => c.classList.remove('big'));
+  const base = kind.split('-')[0];
+  const [a,b,c] = themes[base] || ['#222','#111','#fff'];
+  const seeds = [
+    `radial-gradient(60% 80% at 30% 20%,${c}55,transparent 60%),linear-gradient(135deg,${a},${b})`,
+    `radial-gradient(50% 70% at 80% 80%,${c}40,transparent 65%),linear-gradient(160deg,${b},${a})`,
+    `radial-gradient(40% 60% at 50% 50%,${c}30,transparent 60%),repeating-linear-gradient(45deg,${a} 0 40px,${b} 40px 80px)`,
+    `repeating-radial-gradient(circle at 50% 50%,${c}33 0 14px,${a} 14px 28px,${b} 28px 42px)`,
+    `linear-gradient(90deg,${a} 0%,${b} 50%,${a} 100%)`,
+    `radial-gradient(circle at 70% 30%,${c}66,transparent 50%),linear-gradient(180deg,${b},${a})`
+  ];
+  const seed = (parseInt(kind.split('-')[1] || '1') - 1) % seeds.length;
+  return seeds[seed];
+}
+
+/* ============= PROJECT MODAL ============= */
+function initModal(){
+  const env = document.getElementById('env');
+  const closeBtn = document.getElementById('envClose');
+
+  function open(key){
+    const p = PROJECTS[key];
+    if(!p) return;
+
+    // Crumbs
+    env.querySelector('.crumbs .name').textContent = p.name;
+    env.querySelector('.crumbs .client').textContent = p.client;
+
+    // HUD
+    const hud = env.querySelector('.hud-stats');
+    hud.innerHTML = (p.hud || []).map(([v,k]) =>
+      `<div class="hud-stat"><div><span class="v">${v}</span><div class="k">${k}</div></div></div>`
+    ).join('');
+    // Live clock
+    const setClock = () => {
+      const d = new Date();
+      const hh = String(d.getHours()).padStart(2,'0');
+      const mm = String(d.getMinutes()).padStart(2,'0');
+      const ss = String(d.getSeconds()).padStart(2,'0');
+      const clk = env.querySelector('.hud-clock');
+      if(clk) clk.textContent = `${hh}:${mm}:${ss}`;
+    };
+    setClock();
+    if(window.__clockTimer) clearInterval(window.__clockTimer);
+    window.__clockTimer = setInterval(setClock, 1000);
+
+    // Phase timeline
+    const phases = p.phases || [1,1,1,0,0,0];
+    env.querySelectorAll('.ph-step').forEach((s,i) => {
+      s.classList.remove('done','active');
+      if(phases[i] === 1) s.classList.add('done');
+      else if(i > 0 && phases[i-1] === 1) s.classList.add('active');
+    });
+
+    // Zone matrix — universal, but flavoured to project
+    const ZONES = ['FOP','OPS','VIP','PRESS','IT'];
+    const matrix = {
+      'Accred':[1,1,1,1,1],
+      'Operator':[1,1,1,0,1],
+      'Vendor':[0,1,0,0,0],
+      'Press':[2,1,0,1,0]  // 2 = escort
+    };
+    const zmGrid = env.querySelector('.zm-grid');
+    let zmHtml = '<div class="zm-cell h"></div>' + ZONES.map(z => `<div class="zm-cell h">${z}</div>`).join('');
+    Object.entries(matrix).forEach(([role,cells]) => {
+      zmHtml += `<div class="zm-cell role">${role}</div>`;
+      cells.forEach(c => {
+        const cls = c === 1 ? 'on' : (c === 2 ? 'esc' : 'off');
+        const sym = c === 1 ? '●' : (c === 2 ? 'E' : '—');
+        zmHtml += `<div class="zm-cell ${cls}">${sym}</div>`;
+      });
+    });
+    zmGrid.innerHTML = zmHtml;
+
+    // Seal
+    const sealNoEl = env.querySelector('.seal-no');
+    if(sealNoEl) sealNoEl.textContent = p.sealNo || '—';
+
+    // Hero
+    const hero = env.querySelector('.heroimg');
+    hero.style.background = galleryBg(`${key}-1`);
+    env.querySelector('.kicker .pill').textContent = p.pill;
+    env.querySelector('.kicker .role').textContent = p.role;
+    env.querySelector('.kicker .year').textContent = p.year;
+    env.querySelector('.heroinfo h2').innerHTML = p.title;
+    env.querySelector('.heroinfo .strap').textContent = p.strap;
+
+    // Overview
+    env.querySelector('[data-pane="overview"] .ov-body').innerHTML = `<p>${p.overview}</p>`;
+    env.querySelector('[data-pane="overview"] .why-q').textContent = p.why;
+    env.querySelector('[data-pane="overview"] .kvs').innerHTML =
+      p.kvs.map(([k,v]) => `<div class="kv"><span class="k">${k}</span><span class="v">${v}</span></div>`).join('');
+
+    // Gallery
+    env.querySelector('[data-pane="gallery"] .gallery').innerHTML =
+      p.gallery.map((g, i) => {
+        const sizes = ['grid-column:span 3;grid-row:span 2','grid-column:span 3;grid-row:span 1','grid-column:span 2;grid-row:span 1','grid-column:span 2;grid-row:span 1','grid-column:span 2;grid-row:span 1'];
+        return `<div class="g-img" style="background:${galleryBg(g.kind)};${sizes[i] || ''}" data-cap="${g.cap}"></div>`;
+      }).join('');
+
+    // Specs
+    env.querySelector('[data-pane="specs"] .spec-list').innerHTML =
+      p.specs.map(([k,v]) => `<li><span class="k">${k}</span><span class="v">${v}</span></li>`).join('');
+    env.querySelector('[data-pane="specs"] .chips-wrap').innerHTML =
+      p.chips.map(c => `<span>${c}</span>`).join('');
+
+    // Outcomes
+    env.querySelector('[data-pane="outcomes"] .bullet-list').innerHTML =
+      p.bullets.map(b => `<li>${b}</li>`).join('');
+    env.querySelector('[data-pane="outcomes"] .bars').innerHTML =
+      p.bars.map(([l,r,pct]) => `
+        <div class="bar-row">
+          <div class="bh"><span class="l">${l}</span><span class="r">${r}</span></div>
+          <div class="bar"><i data-w="${pct}"></i></div>
+        </div>`).join('');
+
+    // Activate first tab
+    env.querySelectorAll('.env-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === 'overview'));
+    env.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === 'overview'));
+
+    env.classList.add('open');
+    env.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+
+    // Animate bars after open
+    setTimeout(() => {
+      env.querySelectorAll('.bar i').forEach(i => i.style.width = i.dataset.w + '%');
+    }, 350);
+  }
+
+  function close(){
+    env.classList.remove('open');
+    env.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    if(window.__clockTimer){ clearInterval(window.__clockTimer); window.__clockTimer = null; }
+  }
+
+  document.querySelectorAll('.proj').forEach(el => {
+    el.addEventListener('click', () => open(el.dataset.key));
+  });
+  closeBtn.addEventListener('click', close);
+  env.addEventListener('click', (e) => { if(e.target === env) close(); });
+  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') close(); });
+
+  // Tabs
+  env.querySelectorAll('.env-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      const tab = t.dataset.tab;
+      env.querySelectorAll('.env-tab').forEach(x => x.classList.toggle('active', x === t));
+      env.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === tab));
+      if(tab === 'outcomes'){
+        setTimeout(() => env.querySelectorAll('.bar i').forEach(i => i.style.width = i.dataset.w + '%'), 50);
+      }
+    });
   });
 }
 
-// ---------- PARALLAX ----------
-function initParallax(){
-  const items = document.querySelectorAll('[data-parallax]');
-  const onScroll = () => {
-    const y = window.scrollY;
-    items.forEach(el => {
-      const speed = parseFloat(el.dataset.parallax) || .1;
-      el.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+/* ============= POLAROIDS PARALLAX ============= */
+function initPolaroids(){
+  const ps = document.querySelectorAll('.poloroid');
+  if(!ps.length) return;
+  document.querySelector('.cover')?.addEventListener('mousemove', (e) => {
+    const w = window.innerWidth, h = window.innerHeight;
+    const nx = (e.clientX / w - 0.5);
+    const ny = (e.clientY / h - 0.5);
+    ps.forEach((p, i) => {
+      const m = (i+1) * 6;
+      const baseRot = [6, -7, 3][i] || 0;
+      p.style.transform = `translate(${nx*m}px, ${ny*m}px) rotate(${baseRot + nx*2}deg)`;
+    });
+  });
+}
+
+/* ============= TICKETS — scroll-in / scroll-out ============= */
+function initTickets(){
+  const tickets = [...document.querySelectorAll('.ticket')];
+  if(!tickets.length) return;
+
+  // Stagger reveal on first scroll-in
+  tickets.forEach((t,i) => {
+    setTimeout(() => t.classList.add('in'), 700 + i*220);
+  });
+
+  // Scroll-driven punch-in/out + parallax
+  const cover = document.querySelector('.cover');
+  let raf = 0;
+  const update = () => {
+    raf = 0;
+    if(!cover) return;
+    const r = cover.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // progress: 0 at hero top, 1 when hero fully scrolled past
+    const p = Math.max(0, Math.min(1, (-r.top) / (r.height || 1)));
+    tickets.forEach((t,i) => {
+      const baseRot = [7,-8,4][i] || 0;
+      // mild parallax
+      const ty = p * (60 + i*20);
+      const op = 1 - Math.min(1, p*1.4);
+      t.style.setProperty('--tk-rot', `${baseRot + p*-4}deg`);
+      t.style.opacity = op;
+      t.style.transform = `translateY(${ty}px) rotate(${baseRot + p*-4}deg) scale(${1 - p*0.08})`;
+      // when scrolled back up past zero, re-add
+      if(p < 0.1) t.classList.add('in');
     });
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', () => {
+    if(raf) return;
+    raf = requestAnimationFrame(update);
+  }, {passive:true});
+
+  // Hover parallax (kept subtle)
+  cover?.addEventListener('mousemove', (e) => {
+    const w = window.innerWidth, h = window.innerHeight;
+    const nx = (e.clientX / w - 0.5);
+    const ny = (e.clientY / h - 0.5);
+    tickets.forEach((t,i) => {
+      const m = (i+1) * 4;
+      t.style.translate = `${nx*m}px ${ny*m}px`;
+    });
+  });
+  cover?.addEventListener('mouseleave', () => {
+    tickets.forEach(t => t.style.translate = '');
+  });
 }
+
+/* ============= DOSSIER FOLDERS ============= */
+function initFolders(){
+  const folders = document.querySelectorAll('.folder');
+  // Open the first one by default
+  folders.forEach((f,i) => {
+    if(i === 0) f.setAttribute('aria-expanded','true');
+    f.addEventListener('click', () => {
+      const open = f.getAttribute('aria-expanded') === 'true';
+      // accordion: close others
+      folders.forEach(o => o.setAttribute('aria-expanded','false'));
+      if(!open) f.setAttribute('aria-expanded','true');
+    });
+  });
+}
+
+/* ============= TWEAKS PANEL ============= */
+function initTweaks(){
+  // Create panel
+  const panel = document.createElement('div');
+  panel.className = 'tweaks';
+  panel.innerHTML = `
+    <div class="tw-h">
+      <span class="ttl">Tweaks</span>
+      <button id="twClose" aria-label="Close">×</button>
+    </div>
+    <div class="tw-row">
+      <label>Accent · Floodlight</label>
+      <div class="tw-swatches">
+        ${ACCENTS.map(a => `<div class="tw-sw" data-c="${a.id}" style="background:${a.id}" title="${a.name}"></div>`).join('')}
+      </div>
+    </div>
+    <div class="tw-row">
+      <label>Theme</label>
+      <div class="tw-toggles">
+        <button data-theme="paper">Paper</button>
+        <button data-theme="floodlights">Floodlights</button>
+      </div>
+    </div>
+    <div class="tw-row">
+      <label>Ticker</label>
+      <div class="tw-toggles">
+        <button data-ticker="on">On</button>
+        <button data-ticker="off">Off</button>
+      </div>
+    </div>
+    <div class="tw-row">
+      <label>Hero polaroids</label>
+      <div class="tw-toggles">
+        <button data-pol="on">On</button>
+        <button data-pol="off">Off</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(panel);
+
+  const send = (edits) => {
+    Object.assign(TWEAKS, edits);
+    try{ window.parent.postMessage({type:'__edit_mode_set_keys', edits}, '*'); }catch{}
+  };
+
+  const applyAccent = (c) => {
+    document.documentElement.style.setProperty('--flood', c);
+    panel.querySelectorAll('.tw-sw').forEach(s => s.classList.toggle('on', s.dataset.c === c));
+  };
+  const applyTheme = (t) => {
+    document.body.setAttribute('data-theme', t);
+    panel.querySelectorAll('[data-theme]').forEach(b => b.classList.toggle('on', b.dataset.theme === t));
+    const lbl = document.querySelector('#themeBtn .label');
+    if(lbl) lbl.textContent = t === 'paper' ? 'Floodlights · On' : 'Paper · On';
+  };
+  const applyTicker = (on) => {
+    document.querySelector('.ticker').style.display = on ? '' : 'none';
+    panel.querySelectorAll('[data-ticker]').forEach(b => b.classList.toggle('on', (b.dataset.ticker === 'on') === on));
+  };
+  const applyPolaroids = (on) => {
+    const p = document.querySelector('.polaroids');
+    if(p) p.style.display = on ? '' : 'none';
+    panel.querySelectorAll('[data-pol]').forEach(b => b.classList.toggle('on', (b.dataset.pol === 'on') === on));
+  };
+
+  // wire
+  panel.querySelectorAll('.tw-sw').forEach(s => s.addEventListener('click', () => { applyAccent(s.dataset.c); send({accent:s.dataset.c}); }));
+  panel.querySelectorAll('[data-theme]').forEach(b => b.addEventListener('click', () => { applyTheme(b.dataset.theme); send({theme:b.dataset.theme}); }));
+  panel.querySelectorAll('[data-ticker]').forEach(b => b.addEventListener('click', () => { const on = b.dataset.ticker === 'on'; applyTicker(on); send({showTicker:on}); }));
+  panel.querySelectorAll('[data-pol]').forEach(b => b.addEventListener('click', () => { const on = b.dataset.pol === 'on'; applyPolaroids(on); send({showPolaroids:on}); }));
+
+  // Initial apply
+  applyAccent(TWEAKS.accent || '#d63919');
+  applyTheme(TWEAKS.theme || 'paper');
+  applyTicker(!!TWEAKS.showTicker);
+  applyPolaroids(!!TWEAKS.showPolaroids);
+
+  // Edit mode protocol
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    if(d.type === '__activate_edit_mode') panel.classList.add('show');
+    if(d.type === '__deactivate_edit_mode') panel.classList.remove('show');
+  });
+  panel.querySelector('#twClose').addEventListener('click', () => {
+    panel.classList.remove('show');
+    try{ window.parent.postMessage({type:'__edit_mode_dismissed'}, '*'); }catch{}
+  });
+  try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch{}
+}
+
+/* ============= BOOT ============= */
+function boot(){
+  tagReveals();
+  initCurtain();
+  initScrollProg();
+  initTheme();
+  initMagnetic();
+  initStats();
+  initReveal();
+  initDeck();
+  initPass();
+  initModal();
+  initPolaroids();
+  initTickets();
+  initFolders();
+  initTweaks();
+}
+if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();
+
+})();
