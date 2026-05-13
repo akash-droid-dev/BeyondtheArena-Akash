@@ -876,34 +876,34 @@ function initTweaks(){
   panel.className = 'tweaks';
   panel.innerHTML = `
     <div class="tw-h">
-      <span class="ttl">Tweaks</span>
-      <button id="twClose" aria-label="Close">×</button>
+      <span class="ttl"></span>
+      <button id="twClose" aria-label="Close"></button>
     </div>
     <div class="tw-row">
-      <label>Accent · Floodlight</label>
+      <label></label>
       <div class="tw-swatches">
         ${ACCENTS.map(a => `<div class="tw-sw" data-c="${a.id}" style="background:${a.id}" title="${a.name}"></div>`).join('')}
       </div>
     </div>
     <div class="tw-row">
-      <label>Theme</label>
+      <label></label>
       <div class="tw-toggles">
-        <button data-theme="paper">Paper</button>
-        <button data-theme="floodlights">Floodlights</button>
+        <button data-theme="paper"></button>
+        <button data-theme="floodlights"></button>
       </div>
     </div>
     <div class="tw-row">
-      <label>Ticker</label>
+      <label></label>
       <div class="tw-toggles">
-        <button data-ticker="on">On</button>
-        <button data-ticker="off">Off</button>
+        <button data-ticker="on"></button>
+        <button data-ticker="off"></button>
       </div>
     </div>
     <div class="tw-row">
-      <label>Hero polaroids</label>
+      <label></label>
       <div class="tw-toggles">
-        <button data-pol="on">On</button>
-        <button data-pol="off">Off</button>
+        <button data-pol="on"></button>
+        <button data-pol="off"></button>
       </div>
     </div>
   `;
