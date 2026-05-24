@@ -16,6 +16,24 @@
 
   try { muted = localStorage.getItem('ar-sound-muted') === '1'; } catch {}
 
+  /* Read live admin-configured sound config from content store. */
+  function cfg(){
+    const CS = window.PortfolioContent;
+    const def = { enabled: true, volume: 0.9, showMuteButton: true,
+      effects: { tileClick:true, tap:true, swipe:true, passFlip:true, folderOpen:true,
+                 modalOpen:true, modalClose:true, themeToggle:true, hover:true } };
+    if(!CS) return def;
+    const s = CS.get('sounds');
+    if(!s) return def;
+    return Object.assign({}, def, s, { effects: Object.assign({}, def.effects, s.effects || {}) });
+  }
+  function isEffectAllowed(name){
+    const c = cfg();
+    if(!c.enabled) return false;
+    if(c.effects && c.effects[name] === false) return false;
+    return true;
+  }
+
   /* ---------- ctx ---------- */
   function ensureCtx(){
     if(!ctx){
@@ -26,7 +44,7 @@
     if(ctx.state === 'suspended') ctx.resume();
     if(!bus){
       const g = ctx.createGain();
-      g.gain.value = 0.9;
+      g.gain.value = cfg().volume;
       const comp = ctx.createDynamicsCompressor();
       comp.threshold.value = -18;
       comp.knee.value = 22;
@@ -36,6 +54,9 @@
       g.connect(comp);
       comp.connect(ctx.destination);
       bus = g;
+    } else {
+      // Live volume update on each ctx access
+      bus.gain.setTargetAtTime(cfg().volume, ctx.currentTime, 0.05);
     }
     return ctx;
   }
@@ -110,6 +131,7 @@
 
   function ok(name){
     if(muted) return false;
+    if(!isEffectAllowed(name)) return false;
     const now = performance.now();
     if(lastFired[name] && now - lastFired[name] < RATE_LIMIT_MS) return false;
     lastFired[name] = now;
@@ -226,6 +248,17 @@
   document.addEventListener('keydown', arm, { once:true });
   document.addEventListener('touchstart', arm, { once:true, passive:true });
 
+  /* ---------- preview sound (test buttons from admin) ---------- */
+  Sounds.preview = function(name){
+    // Plays even if rate-limited, but still respects mute + admin toggle.
+    const fn = Sounds[name];
+    if(typeof fn !== 'function') return;
+    // Bypass rate limit by stashing
+    const last = lastFired[name]; lastFired[name] = 0;
+    fn.call(Sounds);
+    lastFired[name] = last;
+  };
+
   /* ---------- mute toggle UI ---------- */
   function injectMuteToggle(){
     // styles
@@ -307,6 +340,19 @@
     });
 
     window.addEventListener('sounds:mute-changed', refresh);
+
+    // Hide/show based on admin config (live)
+    function applyVisibility(){
+      const c = cfg();
+      const show = c.enabled && c.showMuteButton;
+      btn.style.display = show ? '' : 'none';
+    }
+    applyVisibility();
+    window.addEventListener('content:remote-loaded', applyVisibility);
+    window.addEventListener('content:saved', applyVisibility);
+    window.addEventListener('message', (e) => {
+      if(e.data && e.data.type === 'portfolio:content-updated') applyVisibility();
+    });
 
     if(document.body) document.body.appendChild(btn);
     else document.addEventListener('DOMContentLoaded', () => document.body.appendChild(btn));

@@ -496,6 +496,23 @@ window.PortfolioContent = (function () {
     colophon: {
       bigHtml: 'End<em>.</em>',
       meta: '<b>The Operator — Vol. 03 / Issue 26</b>\nSet in Instrument Serif, Space Grotesk &amp; JetBrains Mono.<br>Designed &amp; written by Akash Rathore. New Delhi, 2026.<br>© All rights reserved.'
+    },
+
+    sounds: {
+      enabled: true,
+      volume: 0.9,
+      showMuteButton: true,
+      effects: {
+        tileClick: true,
+        tap: true,
+        swipe: true,
+        passFlip: true,
+        folderOpen: true,
+        modalOpen: true,
+        modalClose: true,
+        themeToggle: true,
+        hover: true
+      }
     }
   };
 
@@ -589,6 +606,16 @@ window.PortfolioContent = (function () {
     return JSON.stringify(current, null, 2);
   }
 
+  /* Strip volatile/local-only fields before publishing to production. */
+  function buildPublishPayload() {
+    const snap = JSON.parse(JSON.stringify(current));
+    return snap;
+  }
+
+  function publishJson() {
+    return JSON.stringify(buildPublishPayload(), null, 2);
+  }
+
   function importJson(jsonStr) {
     const parsed = JSON.parse(jsonStr);
     replace(parsed);
@@ -596,11 +623,43 @@ window.PortfolioContent = (function () {
     return current;
   }
 
+  /* Initial sync load (defaults + localStorage). */
   load();
+
+  /* Async load also pulls assets/content.json (the "production" snapshot) if it
+     exists, merging it between defaults and localStorage. Result order:
+       defaults  <  assets/content.json  <  localStorage
+     Visitors with empty localStorage see content.json (what the admin published).
+     Admin previewing in iframe sees their localStorage edits on top. */
+  const REMOTE_URL = 'assets/content.json';
+  let remoteLoaded = false;
+  const loadPromise = (async function () {
+    try {
+      const url = REMOTE_URL + '?t=' + Date.now();
+      const r = await fetch(url, { cache: 'no-cache' });
+      if (!r.ok) return current;
+      const remote = await r.json();
+      // Re-build current from layers
+      const merged = deepClone(DEFAULTS);
+      deepMerge(merged, remote);
+      try {
+        const localRaw = localStorage.getItem(KEY);
+        if (localRaw) deepMerge(merged, JSON.parse(localRaw));
+      } catch (e) { /* noop */ }
+      current = merged;
+      remoteLoaded = true;
+      window.dispatchEvent(new CustomEvent('content:remote-loaded', { detail: current }));
+    } catch (e) {
+      // Network error, CORS, file:// origin, file not found — silently use defaults+local.
+    }
+    return current;
+  })();
 
   return {
     DEFAULTS: DEFAULTS,
     load: load,
+    loadPromise: loadPromise,
+    isRemoteLoaded: () => remoteLoaded,
     getAll: getAll,
     get: get,
     set: set,
@@ -608,7 +667,9 @@ window.PortfolioContent = (function () {
     save: save,
     reset: reset,
     exportJson: exportJson,
+    publishJson: publishJson,
     importJson: importJson,
-    KEY: KEY
+    KEY: KEY,
+    REMOTE_URL: REMOTE_URL
   };
 })();

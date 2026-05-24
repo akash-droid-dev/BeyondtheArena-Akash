@@ -1236,7 +1236,19 @@ function boot(){
   initGlobalClickSounds();
   watchContentChanges();
 }
-if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
-else boot();
+async function start(){
+  // Wait for remote content.json (or timeout) so we render the production state on first paint.
+  try {
+    if(CS && CS.loadPromise){
+      await Promise.race([
+        CS.loadPromise,
+        new Promise(resolve => setTimeout(resolve, 1500))
+      ]);
+    }
+  } catch (e) { /* ignore */ }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+}
+start();
 
 })();
