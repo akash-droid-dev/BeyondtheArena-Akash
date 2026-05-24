@@ -290,82 +290,377 @@
     <p class="section-lede" style="margin-bottom:36px">Click any tile to enter the project — overview, gallery, specs, outcomes. Each project is its own room.</p>
 
     <div class="project-grid">
-      <article class="proj size-lg" data-key="gms">
-        <div class="cover-img"></div>
-        <div class="cover-tint"></div>
-        <div class="badge"><span class="b-dot"></span>01 · Now</div>
-        <div class="year">2025 — Present</div>
-        <div class="meta">
-          <div class="role">GoBananas · Product</div>
-          <h3>Games <em>Management</em> System</h3>
-          <div class="tags"><span>BRD / FRD / PRD</span><span>UI/UX Wireframing</span><span>Automation</span></div>
+      <!-- 01 · GMS -->
+      <article class="proj" data-key="gms" data-bp="gms" style="grid-column:span 7">
+        <header class="proj-top">
+          <span class="proj-gate"><i></i>GATE · G-01</span>
+          <span class="proj-stamp st-live">NOW · LIVE</span>
+        </header>
+        <div class="proj-blueprint" aria-hidden="true">
+          <svg viewBox="0 0 400 200" class="bp-svg bp-gms" preserveAspectRatio="xMidYMid slice">
+            <defs>
+              <pattern id="bpgrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M0 20 H20 M20 0 V20" stroke="currentColor" stroke-width=".4" opacity=".18"/>
+              </pattern>
+            </defs>
+            <rect width="400" height="200" fill="url(#bpgrid)"/>
+            <!-- nodes -->
+            <g class="bp-edges" stroke="currentColor" stroke-width="1" opacity=".4" fill="none">
+              <path d="M80 60 L200 100 L320 60 M80 140 L200 100 L320 140 M200 100 L200 30 M200 100 L200 170"/>
+            </g>
+            <g class="bp-nodes">
+              <rect x="62" y="42" width="36" height="36" rx="3" class="bp-node n-a"/>
+              <rect x="62" y="122" width="36" height="36" rx="3" class="bp-node n-b"/>
+              <rect x="302" y="42" width="36" height="36" rx="3" class="bp-node n-c"/>
+              <rect x="302" y="122" width="36" height="36" rx="3" class="bp-node n-d"/>
+              <rect x="182" y="12" width="36" height="36" rx="3" class="bp-node n-e"/>
+              <rect x="182" y="152" width="36" height="36" rx="3" class="bp-node n-f"/>
+              <rect x="172" y="78" width="56" height="44" rx="4" class="bp-node hub"/>
+              <text x="200" y="106" text-anchor="middle" class="bp-text">GMS</text>
+            </g>
+            <text x="80" y="80" class="bp-lab">REG</text>
+            <text x="80" y="160" class="bp-lab">ACCRED</text>
+            <text x="320" y="80" class="bp-lab">DRAW</text>
+            <text x="320" y="160" class="bp-lab">SCORE</text>
+            <text x="200" y="22" text-anchor="middle" class="bp-lab">VENUE</text>
+            <text x="200" y="182" text-anchor="middle" class="bp-lab">REPORT</text>
+          </svg>
+          <div class="bp-sweep"></div>
+          <div class="bp-meta">GoBananas · Platform Architecture · v2.1</div>
         </div>
-        <div class="open-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg></div>
+        <div class="proj-sign">
+          <div class="prs-row">
+            <span class="prs-client">GoBananas · Product</span>
+            <span class="prs-year">2025 — Present</span>
+          </div>
+          <h3 class="prs-title">Games <em>Management</em> System</h3>
+          <div class="prs-kpi">
+            <div><b>3</b><span>Modules</span></div>
+            <div><b>BRD<sup>+2</sup></b><span>Spec set</span></div>
+            <div><b>94<sup>%</sup></b><span>Coverage</span></div>
+            <div><b>Live</b><span>Active</span></div>
+          </div>
+          <footer class="prs-foot">
+            <span class="prs-status on"><i></i> Now Playing</span>
+            <span class="prs-cta">Enter environment
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
+            </span>
+          </footer>
+        </div>
       </article>
 
-      <article class="proj size-md" data-key="sajha">
-        <div class="cover-img"></div>
-        <div class="cover-tint"></div>
-        <div class="badge"><span class="b-dot"></span>02 · Shipped</div>
-        <div class="year">2024 — 2025</div>
-        <div class="meta">
-          <div class="role">Sports Authority of Jharkhand</div>
-          <h3><em>SAJHA</em> Sports Portal</h3>
-          <div class="tags"><span>Digitalization</span><span>Govt.</span></div>
+      <!-- 02 · SAJHA -->
+      <article class="proj" data-key="sajha" data-bp="sajha" style="grid-column:span 5">
+        <header class="proj-top">
+          <span class="proj-gate"><i></i>GATE · G-02</span>
+          <span class="proj-stamp st-ship">SHIPPED</span>
+        </header>
+        <div class="proj-blueprint" aria-hidden="true">
+          <svg viewBox="0 0 400 200" class="bp-svg bp-sajha" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="200" fill="url(#bpgrid)"/>
+            <!-- Jharkhand-esque state outline -->
+            <path d="M120 50 L170 38 L220 44 L260 52 L290 70 L300 100 L296 130 L268 158 L228 168 L186 162 L150 152 L122 130 L108 100 L112 72 Z"
+                  class="bp-state" stroke="currentColor" stroke-width="1.6" fill="rgba(214,57,25,.08)"/>
+            <!-- districts -->
+            <circle cx="190" cy="100" r="4" class="bp-cap"/>
+            <circle cx="190" cy="100" r="9" class="bp-cap-ring"/>
+            <text x="200" y="98" class="bp-lab">RANCHI</text>
+            <circle cx="155" cy="80" r="2" class="bp-dot"/>
+            <circle cx="240" cy="78" r="2" class="bp-dot"/>
+            <circle cx="160" cy="135" r="2" class="bp-dot"/>
+            <circle cx="245" cy="140" r="2" class="bp-dot"/>
+            <circle cx="215" cy="65" r="2" class="bp-dot"/>
+            <circle cx="270" cy="115" r="2" class="bp-dot"/>
+            <text x="200" y="30" text-anchor="middle" class="bp-lab">STATE OF JHARKHAND</text>
+          </svg>
+          <div class="bp-sweep"></div>
+          <div class="bp-meta">Sports Auth. of Jharkhand · State Portal</div>
         </div>
-        <div class="open-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg></div>
+        <div class="proj-sign">
+          <div class="prs-row">
+            <span class="prs-client">Sports Authority · Jharkhand</span>
+            <span class="prs-year">2024 — 2025</span>
+          </div>
+          <h3 class="prs-title"><em>SAJHA</em> Portal</h3>
+          <div class="prs-kpi">
+            <div><b>9<sup>/12</sup></b><span>Fed.</span></div>
+            <div><b>7<sup>+</sup></b><span>Flows</span></div>
+            <div><b>BRD</b><span>Authored</span></div>
+            <div><b>State</b><span>Govt.</span></div>
+          </div>
+          <footer class="prs-foot">
+            <span class="prs-status archive"><i></i> Shipped</span>
+            <span class="prs-cta">Enter environment
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
+            </span>
+          </footer>
+        </div>
       </article>
 
-      <article class="proj size-md" data-key="ipl">
-        <div class="cover-img"></div>
-        <div class="cover-tint"></div>
-        <div class="badge"><span class="b-dot"></span>03 · Marquee</div>
-        <div class="year">2023 — 2024</div>
-        <div class="meta">
-          <div class="role">Paytm Insider · Multi-Stadium</div>
-          <h3>TATA IPL <em>Accreditation</em></h3>
-          <div class="tags"><span>Access Control</span><span>Real-time</span></div>
+      <!-- 03 · IPL -->
+      <article class="proj" data-key="ipl" data-bp="ipl" style="grid-column:span 5">
+        <header class="proj-top">
+          <span class="proj-gate"><i></i>GATE · G-03</span>
+          <span class="proj-stamp st-marquee">MARQUEE</span>
+        </header>
+        <div class="proj-blueprint" aria-hidden="true">
+          <svg viewBox="0 0 400 200" class="bp-svg bp-ipl" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="200" fill="url(#bpgrid)"/>
+            <!-- cricket oval -->
+            <ellipse cx="200" cy="100" rx="150" ry="78" class="bp-oval" stroke="currentColor" stroke-width="1.6" fill="rgba(214,57,25,.06)"/>
+            <circle cx="200" cy="100" r="48" class="bp-30y" stroke="currentColor" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
+            <!-- pitch -->
+            <rect x="186" y="82" width="28" height="36" class="bp-pitch" fill="currentColor" opacity=".6"/>
+            <!-- fielders -->
+            <g class="bp-fielders" fill="currentColor">
+              <circle cx="200" cy="100" r="2.5"/>
+              <circle cx="200" cy="40" r="2.5"/>
+              <circle cx="200" cy="160" r="2.5"/>
+              <circle cx="80" cy="100" r="2.5"/>
+              <circle cx="320" cy="100" r="2.5"/>
+              <circle cx="135" cy="55" r="2.5"/>
+              <circle cx="265" cy="55" r="2.5"/>
+              <circle cx="135" cy="145" r="2.5"/>
+              <circle cx="265" cy="145" r="2.5"/>
+              <circle cx="165" cy="120" r="2.5"/>
+              <circle cx="235" cy="80" r="2.5"/>
+            </g>
+            <!-- floodlight pylons -->
+            <g class="bp-pylons">
+              <path d="M40 22 L48 22 L46 38 L42 38 Z" class="bp-pyl"/>
+              <path d="M352 22 L360 22 L358 38 L354 38 Z" class="bp-pyl"/>
+              <path d="M40 178 L48 178 L46 162 L42 162 Z" class="bp-pyl"/>
+              <path d="M352 178 L360 178 L358 162 L354 162 Z" class="bp-pyl"/>
+            </g>
+            <text x="40" y="14" class="bp-lab">FL · NE</text>
+            <text x="352" y="14" class="bp-lab" text-anchor="end">FL · NW</text>
+          </svg>
+          <div class="bp-sweep"></div>
+          <div class="bp-meta">WANKHEDE · TOP DOWN · 1:2400</div>
         </div>
-        <div class="open-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg></div>
+        <div class="proj-sign">
+          <div class="prs-row">
+            <span class="prs-client">Paytm Insider · BCCI</span>
+            <span class="prs-year">2023 — 2024</span>
+          </div>
+          <h3 class="prs-title">TATA IPL <em>Accred.</em></h3>
+          <div class="prs-kpi">
+            <div><b>6</b><span>Venues</span></div>
+            <div><b>10k<sup>+</sup></b><span>Badges</span></div>
+            <div><b>99.7<sup>%</sup></b><span>Uptime</span></div>
+            <div><b>Live</b><span>Match-day</span></div>
+          </div>
+          <footer class="prs-foot">
+            <span class="prs-status archive"><i></i> Archive</span>
+            <span class="prs-cta">Enter environment
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
+            </span>
+          </footer>
+        </div>
       </article>
 
-      <article class="proj size-lg" data-key="ng">
-        <div class="cover-img"></div>
-        <div class="cover-tint"></div>
-        <div class="badge"><span class="b-dot"></span>04 · Policy</div>
-        <div class="year">2023</div>
-        <div class="meta">
-          <div class="role">Sports Authority of Goa</div>
-          <h3>37<sup>th</sup> National <em>Games</em>, Goa</h3>
-          <div class="tags"><span>Policy</span><span>Tender Docs</span><span>IT Integration</span></div>
+      <!-- 04 · NG Goa -->
+      <article class="proj" data-key="ng" data-bp="ng" style="grid-column:span 7">
+        <header class="proj-top">
+          <span class="proj-gate"><i></i>GATE · G-04</span>
+          <span class="proj-stamp st-policy">POLICY</span>
+        </header>
+        <div class="proj-blueprint" aria-hidden="true">
+          <svg viewBox="0 0 400 200" class="bp-svg bp-ng" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="200" fill="url(#bpgrid)"/>
+            <!-- master campus boundary -->
+            <path d="M40 30 L360 30 L380 100 L360 170 L40 170 L20 100 Z"
+                  class="bp-campus" stroke="currentColor" stroke-width="1.2" fill="none" stroke-dasharray="2 4"/>
+            <!-- venues -->
+            <ellipse cx="100" cy="80" rx="50" ry="30" class="bp-arena n-1" stroke="currentColor" stroke-width="1.4" fill="rgba(214,57,25,.08)"/>
+            <text x="100" y="84" text-anchor="middle" class="bp-lab">ATHLETICS</text>
+
+            <rect x="180" y="50" width="80" height="60" rx="2" class="bp-arena n-2" stroke="currentColor" stroke-width="1.4" fill="rgba(214,57,25,.08)"/>
+            <text x="220" y="84" text-anchor="middle" class="bp-lab">INDOOR</text>
+
+            <path d="M290 50 L360 50 L360 110 L290 110 Z" class="bp-arena n-3" stroke="currentColor" stroke-width="1.4" fill="rgba(214,57,25,.08)"/>
+            <text x="325" y="84" text-anchor="middle" class="bp-lab">POOL</text>
+
+            <rect x="60" y="130" width="80" height="28" class="bp-arena n-4" stroke="currentColor" stroke-width="1.4" fill="rgba(214,57,25,.08)"/>
+            <text x="100" y="148" text-anchor="middle" class="bp-lab">TENNIS</text>
+
+            <path d="M180 130 L260 130 L240 158 L200 158 Z" class="bp-arena n-5" stroke="currentColor" stroke-width="1.4" fill="rgba(214,57,25,.08)"/>
+            <text x="220" y="148" text-anchor="middle" class="bp-lab">SHOOT.</text>
+
+            <circle cx="320" cy="144" r="20" class="bp-arena n-6" stroke="currentColor" stroke-width="1.4" fill="rgba(214,57,25,.08)"/>
+            <text x="320" y="148" text-anchor="middle" class="bp-lab">VEL.</text>
+
+            <!-- connector paths -->
+            <g stroke="currentColor" stroke-width=".5" opacity=".3" fill="none" stroke-dasharray="2 3">
+              <path d="M150 95 L180 80 M260 80 L290 80 M200 110 L180 130 M260 110 L260 130 M140 130 L150 110 M260 145 L300 144"/>
+            </g>
+            <text x="200" y="22" text-anchor="middle" class="bp-lab">37TH NATIONAL GAMES · GOA · CAMPUS</text>
+          </svg>
+          <div class="bp-sweep"></div>
+          <div class="bp-meta">SAG · 30 Disciplines · 6 Anchor Venues</div>
         </div>
-        <div class="open-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg></div>
+        <div class="proj-sign">
+          <div class="prs-row">
+            <span class="prs-client">Sports Authority · Goa</span>
+            <span class="prs-year">2023</span>
+          </div>
+          <h3 class="prs-title">37<sup>th</sup> National <em>Games</em>, Goa</h3>
+          <div class="prs-kpi">
+            <div><b>30<sup>+</sup></b><span>Disciplines</span></div>
+            <div><b>1</b><span>Policy</span></div>
+            <div><b>9<sup>/9</sup></b><span>Sign-offs</span></div>
+            <div><b>Tender</b><span>1st pass</span></div>
+          </div>
+          <footer class="prs-foot">
+            <span class="prs-status archive"><i></i> Archive</span>
+            <span class="prs-cta">Enter environment
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
+            </span>
+          </footer>
+        </div>
       </article>
 
-      <article class="proj size-sm" data-key="archery">
-        <div class="cover-img"></div>
-        <div class="cover-tint"></div>
-        <div class="badge"><span class="b-dot"></span>05 · 2026</div>
-        <div class="year">Jan 2026</div>
-        <div class="meta">
-          <div class="role">NTPC Khelo India · Ambaji</div>
-          <h3><em>Archery</em> National Ranking</h3>
-          <div class="tags"><span>Venue Setup</span><span>AAI Standards</span></div>
+      <!-- 05 · Archery -->
+      <article class="proj" data-key="archery" data-bp="archery" style="grid-column:span 5">
+        <header class="proj-top">
+          <span class="proj-gate"><i></i>GATE · G-05</span>
+          <span class="proj-stamp st-q">JAN '26</span>
+        </header>
+        <div class="proj-blueprint" aria-hidden="true">
+          <svg viewBox="0 0 400 200" class="bp-svg bp-arch" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="200" fill="url(#bpgrid)"/>
+            <!-- shooting line -->
+            <line x1="48" y1="20" x2="48" y2="180" stroke="currentColor" stroke-width="2" class="bp-line"/>
+            <text x="36" y="100" class="bp-lab" transform="rotate(-90 36 100)" text-anchor="middle">SHOOTING LINE</text>
+            <!-- lanes -->
+            <g stroke="currentColor" stroke-width=".5" opacity=".3" stroke-dasharray="2 4">
+              <line x1="48" y1="50" x2="360" y2="50"/>
+              <line x1="48" y1="90" x2="360" y2="90"/>
+              <line x1="48" y1="130" x2="360" y2="130"/>
+              <line x1="48" y1="170" x2="360" y2="170"/>
+            </g>
+            <!-- targets at varying distances -->
+            <g class="bp-targets">
+              <g transform="translate(120,50)" class="bp-target">
+                <circle r="14" fill="#fff" stroke="currentColor" stroke-width="1"/>
+                <circle r="10" fill="#000"/>
+                <circle r="6" fill="#3a5ae0"/>
+                <circle r="3" fill="#d63919"/>
+                <circle r="1" fill="#fff"/>
+              </g>
+              <g transform="translate(180,90)" class="bp-target">
+                <circle r="14" fill="#fff" stroke="currentColor" stroke-width="1"/>
+                <circle r="10" fill="#000"/>
+                <circle r="6" fill="#3a5ae0"/>
+                <circle r="3" fill="#d63919"/>
+                <circle r="1" fill="#fff"/>
+              </g>
+              <g transform="translate(260,130)" class="bp-target">
+                <circle r="14" fill="#fff" stroke="currentColor" stroke-width="1"/>
+                <circle r="10" fill="#000"/>
+                <circle r="6" fill="#3a5ae0"/>
+                <circle r="3" fill="#d63919"/>
+                <circle r="1" fill="#fff"/>
+              </g>
+              <g transform="translate(340,170)" class="bp-target">
+                <circle r="14" fill="#fff" stroke="currentColor" stroke-width="1"/>
+                <circle r="10" fill="#000"/>
+                <circle r="6" fill="#3a5ae0"/>
+                <circle r="3" fill="#d63919"/>
+                <circle r="1" fill="#fff"/>
+              </g>
+            </g>
+            <!-- arrow trail -->
+            <path d="M48 90 L180 90" class="bp-arrow" stroke="var(--flood)" stroke-width="1.5" fill="none" stroke-dasharray="200" stroke-dashoffset="200"/>
+            <text x="120" y="34" text-anchor="middle" class="bp-lab">18m</text>
+            <text x="180" y="74" text-anchor="middle" class="bp-lab">30m</text>
+            <text x="260" y="114" text-anchor="middle" class="bp-lab">50m</text>
+            <text x="340" y="154" text-anchor="middle" class="bp-lab">70m</text>
+          </svg>
+          <div class="bp-sweep"></div>
+          <div class="bp-meta">AMBAJI · Range Plan · AAI Compliant</div>
         </div>
-        <div class="open-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg></div>
+        <div class="proj-sign">
+          <div class="prs-row">
+            <span class="prs-client">NTPC Khelo India · Ambaji</span>
+            <span class="prs-year">Jan 2026</span>
+          </div>
+          <h3 class="prs-title"><em>Archery</em> Ranking</h3>
+          <div class="prs-kpi">
+            <div><b>70<sup>m</sup></b><span>Range</span></div>
+            <div><b>AAI</b><span>Std.</span></div>
+            <div><b>5</b><span>Days</span></div>
+            <div><b>Soon</b><span>Q1 '26</span></div>
+          </div>
+          <footer class="prs-foot">
+            <span class="prs-status soon"><i></i> Upcoming</span>
+            <span class="prs-cta">Enter environment
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
+            </span>
+          </footer>
+        </div>
       </article>
 
-      <article class="proj size-wide" data-key="somnath">
-        <div class="cover-img"></div>
-        <div class="cover-tint"></div>
-        <div class="badge"><span class="b-dot"></span>06 · PM Protocol</div>
-        <div class="year">Jan 2026</div>
-        <div class="meta">
-          <div class="role">1000 Years of Somnath Mandir</div>
-          <h3>Somnath <em>Swabhiman</em> Parva</h3>
-          <div class="tags"><span>VIP Accreditation</span><span>Event Flow</span><span>Security</span></div>
+      <!-- 06 · Somnath -->
+      <article class="proj" data-key="somnath" data-bp="somnath" style="grid-column:span 7">
+        <header class="proj-top">
+          <span class="proj-gate"><i></i>GATE · G-06</span>
+          <span class="proj-stamp st-pm">PM TIER</span>
+        </header>
+        <div class="proj-blueprint" aria-hidden="true">
+          <svg viewBox="0 0 400 200" class="bp-svg bp-som" preserveAspectRatio="xMidYMid slice">
+            <rect width="400" height="200" fill="url(#bpgrid)"/>
+            <!-- concentric zone rings -->
+            <circle cx="200" cy="120" r="100" class="bp-ring r-outer" stroke="currentColor" stroke-width="1" fill="none" stroke-dasharray="3 4"/>
+            <circle cx="200" cy="120" r="70" class="bp-ring r-mid" stroke="currentColor" stroke-width="1" fill="rgba(214,57,25,.04)"/>
+            <circle cx="200" cy="120" r="40" class="bp-ring r-inner" stroke="currentColor" stroke-width="1.4" fill="rgba(214,57,25,.1)"/>
+            <!-- temple shikhara silhouette -->
+            <g class="bp-temple" fill="currentColor">
+              <path d="M186 130 L186 100 L192 92 L192 78 L196 72 L196 60 L200 50 L204 60 L204 72 L208 78 L208 92 L214 100 L214 130 Z"/>
+              <circle cx="200" cy="44" r="2.5"/>
+              <path d="M198 50 L202 50 L202 46 L198 46 Z" fill="var(--flood)"/>
+            </g>
+            <!-- sea waves -->
+            <path d="M0 180 Q40 168 80 180 T160 180 T240 180 T320 180 T400 180 V200 H0 Z"
+                  fill="currentColor" opacity=".1"/>
+            <path d="M0 185 Q40 175 80 185 T160 185 T240 185 T320 185 T400 185"
+                  stroke="currentColor" stroke-width=".5" opacity=".3" fill="none"/>
+            <!-- diyas (lamps) -->
+            <g class="bp-diyas">
+              <circle cx="130" cy="170" r="2" class="diya"/>
+              <circle cx="160" cy="170" r="2" class="diya"/>
+              <circle cx="240" cy="170" r="2" class="diya"/>
+              <circle cx="270" cy="170" r="2" class="diya"/>
+              <circle cx="110" cy="150" r="2" class="diya"/>
+              <circle cx="290" cy="150" r="2" class="diya"/>
+            </g>
+            <text x="155" y="40" class="bp-lab">VIP</text>
+            <text x="200" y="160" text-anchor="middle" class="bp-lab">STAGE · INNER</text>
+            <text x="320" y="80" text-anchor="end" class="bp-lab">OPS</text>
+            <text x="200" y="24" text-anchor="middle" class="bp-lab">SOMNATH · ZONE MATRIX</text>
+          </svg>
+          <div class="bp-sweep"></div>
+          <div class="bp-meta">1000 Years · PM Protocol · Concentric Access</div>
         </div>
-        <div class="open-arrow"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg></div>
+        <div class="proj-sign">
+          <div class="prs-row">
+            <span class="prs-client">1000 Years of Somnath Mandir</span>
+            <span class="prs-year">Jan 2026</span>
+          </div>
+          <h3 class="prs-title">Somnath <em>Swabhiman</em></h3>
+          <div class="prs-kpi">
+            <div><b>PM</b><span>Tier</span></div>
+            <div><b>4</b><span>Zones</span></div>
+            <div><b>1k</b><span>Years</span></div>
+            <div><b>0</b><span>Critical inc.</span></div>
+          </div>
+          <footer class="prs-foot">
+            <span class="prs-status soon"><i></i> Upcoming</span>
+            <span class="prs-cta">Enter environment
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>
+            </span>
+          </footer>
+        </div>
       </article>
 
     </div>
@@ -378,27 +673,148 @@
     <p class="section-lede">A career, top to bottom. Click a card, drag to swipe, or arrow-key through.</p>
 
     <div class="deck-wrap">
-      <div class="deck-meta">
-        <div class="deck-now">
-          <span class="live"></span>
-          <span style="text-transform:uppercase">Now Playing —</span>
-          <b class="deck-now-emp">GoBananas · New Delhi</b>
+
+      <!-- BROADCAST STRIP -->
+      <div class="tape-bcast">
+        <div class="tb-left">
+          <span class="tb-rec"></span>
+          <span class="tb-tag">REC</span>
+          <span class="tb-now">Now Playing — <b class="deck-now-emp">GoBananas</b></span>
         </div>
-        <div class="deck-ctrls">
-          <button class="deck-btn deck-prev" aria-label="Previous role">
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3 L3 7 L9 11"/></svg>
-          </button>
-          <div class="deck-counter"><b>01</b><sub>/ 06</sub></div>
-          <button class="deck-btn deck-next" aria-label="Next role">
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3 L11 7 L5 11"/></svg>
-          </button>
+        <div class="tb-vu" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <div class="tb-right">
+          <span class="tb-side">SIDE A</span>
+          <span class="tb-tc">00:<span class="tb-tcA">06</span>:<span class="tb-tcB">00</span></span>
         </div>
       </div>
 
-      <div class="deck-stage"></div>
+      <!-- YEAR SCRUBBER -->
+      <div class="tape-scrub">
+        <div class="ts-track">
+          <div class="ts-fill"></div>
+          <div class="ts-dots"></div>
+        </div>
+        <div class="ts-years">
+          <span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span>
+        </div>
+      </div>
 
-      <div class="deck-dots"></div>
-      <div class="deck-hint">Drag, click a side card, or use <kbd>←</kbd><kbd>→</kbd></div>
+      <!-- MAIN STAGE: carousel + B-side panel -->
+      <div class="tape-main">
+
+        <div class="tape-left">
+          <div class="deck-stage"></div>
+          <div class="deck-dots"></div>
+        </div>
+
+        <aside class="tape-bside">
+          <!-- spinning reels -->
+          <div class="bs-card bs-reels">
+            <div class="bs-h"><span>Cassette</span><span class="bs-meta">Side A · 06 tracks</span></div>
+            <div class="reel-rig">
+              <div class="reel left">
+                <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".3"/><g class="reel-spokes"><circle cx="50" cy="50" r="16" fill="currentColor"/><rect x="48" y="16" width="4" height="20" fill="currentColor"/><rect x="48" y="64" width="4" height="20" fill="currentColor"/><rect x="16" y="48" width="20" height="4" fill="currentColor"/><rect x="64" y="48" width="20" height="4" fill="currentColor"/><rect x="48" y="48" width="4" height="4" fill="var(--bg)" transform="rotate(45 50 50)"/></g></svg>
+              </div>
+              <div class="reel-tape"></div>
+              <div class="reel right">
+                <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".3"/><g class="reel-spokes"><circle cx="50" cy="50" r="16" fill="currentColor"/><rect x="48" y="16" width="4" height="20" fill="currentColor"/><rect x="48" y="64" width="4" height="20" fill="currentColor"/><rect x="16" y="48" width="20" height="4" fill="currentColor"/><rect x="64" y="48" width="20" height="4" fill="currentColor"/></g></svg>
+              </div>
+            </div>
+            <div class="bs-foot"><span class="bs-tape-id">AR-2025-06</span><span>BR · 7.5 ips</span></div>
+          </div>
+
+          <!-- India map -->
+          <div class="bs-card bs-map">
+            <div class="bs-h"><span>Location</span><span class="bs-meta">tape origin</span></div>
+            <div class="map-wrap">
+              <svg viewBox="0 0 200 220" class="india-map" aria-hidden="true">
+                <!-- Stylised India outline -->
+                <path d="M58,18 L78,12 L100,16 L122,12 L138,22 L150,40 L162,58 L172,76 L168,96 L160,110 L150,128 L140,148 L128,166 L114,180 L100,198 L88,210 L80,202 L72,184 L66,166 L58,148 L48,134 L40,118 L34,100 L30,82 L36,62 L44,46 L52,30 Z" fill="var(--paper-2)" stroke="var(--rule)" stroke-width="1"/>
+                <!-- Lat lines -->
+                <path d="M30,82 L172,76 M34,100 L168,96 M40,118 L160,110 M48,134 L150,128 M58,148 L140,148 M66,166 L128,166" stroke="var(--rule)" stroke-width=".5" opacity=".5"/>
+              </svg>
+              <div class="map-dots">
+                <span class="md md-delhi" data-loc="delhi" style="left:54%;top:30%"><i></i><b>Delhi</b></span>
+                <span class="md md-goa"   data-loc="goa"   style="left:34%;top:74%"><i></i><b>Goa</b></span>
+                <span class="md md-ranchi" data-loc="ranchi" style="left:68%;top:55%"><i></i><b>Ranchi</b></span>
+                <span class="md md-mum"   data-loc="mumbai" style="left:34%;top:62%"><i></i><b>Mumbai</b></span>
+                <span class="md md-amb"   data-loc="ambaji" style="left:30%;top:50%"><i></i><b>Ambaji</b></span>
+                <span class="md md-som"   data-loc="somnath" style="left:22%;top:62%"><i></i><b>Somnath</b></span>
+              </div>
+            </div>
+            <div class="bs-foot"><span class="bs-coord">28.61° N · 77.20° E</span><span class="bs-loc-name">New Delhi</span></div>
+          </div>
+
+          <!-- Trajectory chart -->
+          <div class="bs-card bs-traj">
+            <div class="bs-h"><span>Trajectory</span><span class="bs-meta">scope · 2021 → 2026</span></div>
+            <svg viewBox="0 0 240 90" class="traj" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="trajG" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="var(--flood)" stop-opacity=".35"/>
+                  <stop offset="100%" stop-color="var(--flood)" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <!-- gridlines -->
+              <g stroke="var(--rule-soft)" stroke-width=".5">
+                <line x1="0" y1="22" x2="240" y2="22"/>
+                <line x1="0" y1="44" x2="240" y2="44"/>
+                <line x1="0" y1="66" x2="240" y2="66"/>
+              </g>
+              <!-- area + line: low to high impact -->
+              <path class="traj-area" d="M0,72 L48,60 L96,42 L144,30 L192,18 L240,10 L240,90 L0,90 Z" fill="url(#trajG)"/>
+              <path class="traj-line" d="M0,72 L48,60 L96,42 L144,30 L192,18 L240,10" fill="none" stroke="var(--flood)" stroke-width="1.5" stroke-linecap="round"/>
+              <g class="traj-pts">
+                <circle cx="0"   cy="72" r="3"/>
+                <circle cx="48"  cy="60" r="3"/>
+                <circle cx="96"  cy="42" r="3"/>
+                <circle cx="144" cy="30" r="3"/>
+                <circle cx="192" cy="18" r="3"/>
+                <circle cx="240" cy="10" r="4" class="cur"/>
+              </g>
+            </svg>
+            <div class="traj-axis">
+              <span>'21</span><span>'22</span><span>'23</span><span>'24</span><span>'25</span><span>'26</span>
+            </div>
+          </div>
+
+          <!-- Metadata -->
+          <div class="bs-card bs-meta-card">
+            <div class="bs-h"><span>Tape · Metadata</span><span class="bs-meta bs-status-pill">LIVE</span></div>
+            <div class="meta-grid">
+              <div><span class="mk">Type</span><b class="mv mv-type">Product</b></div>
+              <div><span class="mk">Tape ID</span><b class="mv mv-id">AR-2025-06</b></div>
+              <div><span class="mk">Duration</span><b class="mv mv-dur">Ongoing</b></div>
+              <div><span class="mk">Side</span><b class="mv mv-side">A · 06</b></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- FILMSTRIP -->
+      <div class="tape-film">
+        <div class="film-perf top" aria-hidden="true"></div>
+        <div class="film-frames"></div>
+        <div class="film-perf bot" aria-hidden="true"></div>
+      </div>
+
+      <!-- TRANSPORT CONTROLS -->
+      <div class="tape-ctrls">
+        <button class="deck-btn deck-prev" aria-label="Previous role">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 3 L3 7 L9 11"/><path d="M4 3 V11"/></svg>
+        </button>
+        <button class="deck-btn deck-play" aria-label="Play/Pause">
+          <svg class="ico-play" viewBox="0 0 14 14" fill="currentColor"><path d="M4 2 L12 7 L4 12 Z"/></svg>
+          <svg class="ico-pause" viewBox="0 0 14 14" fill="currentColor" style="display:none"><rect x="3" y="2" width="3" height="10"/><rect x="8" y="2" width="3" height="10"/></svg>
+        </button>
+        <button class="deck-btn deck-next" aria-label="Next role">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 3 L11 7 L5 11"/><path d="M10 3 V11"/></svg>
+        </button>
+        <div class="deck-counter"><b>01</b><sub>/ 06</sub></div>
+        <div class="deck-hint">Drag, click a frame below, or use <kbd>←</kbd><kbd>→</kbd></div>
+      </div>
     </div>
   </section>
 
@@ -717,6 +1133,8 @@
   </div>
 </div>
 
+<script src="assets/content.js"></script>
+<script src="assets/sounds.js"></script>
 <script src="assets/app.js"></script>
 </body>
 </html>

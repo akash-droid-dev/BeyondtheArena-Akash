@@ -5,13 +5,12 @@
 (() => {
 'use strict';
 
-/* ============= TWEAK DEFAULTS ============= */
-const TWEAKS = /*EDITMODE-BEGIN*/{
-  "accent": "#d63919",
-  "theme": "paper",
-  "showTicker": true,
-  "showPolaroids": true
-}/*EDITMODE-END*/;
+/* ============= CONTENT STORE ============= */
+const CS = window.PortfolioContent;
+
+let TWEAKS = {};
+let ROLES = [];
+let PROJECTS = {};
 
 const ACCENTS = [
   {id:'#d63919', name:'Vermilion'},
@@ -21,362 +20,25 @@ const ACCENTS = [
   {id:'#7c3aed', name:'Ultra'}
 ];
 
-/* ============= CAREER DATA ============= */
-const ROLES = [
-  {
-    no:'06', when:'2025 — Present', where:'New Delhi',
-    role:'Asst. Manager — <em>IT & Ops</em>',
-    org:'GoBananas · Games Management System',
-    venue:'Delhi HQ', clock:'09:41 IST',
-    pts:[
-      'Authoring BRD / FRD / PRD for the GMS platform — federation registration, accreditation, tournament & venue modules.',
-      'Translating real-world sports ops into automation specs alongside engineering & design.',
-      'Bridging product, design, vendor & federation stakeholders end-to-end.'
-    ],
-    mini:[['<em>3</em>','Modules'],['<em>BRD</em>','+ FRD + PRD'],['<em>2025</em>','Joined']],
-    skills:['Figma','BRD','PRD','Jira','Claude'],
-    quote:'Translating a stadium concourse into a sprint board, one ticket at a time.',
-    type:'Product', icon:'product', live:true, rail:100,
-    cta:'Open project'
-  },
-  {
-    no:'05', when:'Jan 2026', where:'Ambaji, Gujarat',
-    role:'Venue <em>Lead</em> — Archery',
-    org:'NTPC Khelo India Archery — National Ranking',
-    venue:'Ambaji · Range', clock:'07:15 IST',
-    pts:[
-      'Set up archery range to World Archery / AAI international standards.',
-      'Owned venue vendor coordination, equipment audits and competition flow.',
-      'Coordinated officials, scoring, athlete services across the meet.'
-    ],
-    mini:[['<em>70</em><sup>m</sup>','Range'],['<em>AAI</em>','Compliant'],['<em>5</em>','Days']],
-    skills:['Vendor','AAI','Field Ops','SOPs'],
-    quote:'A national-ranking arrow leaves the bow because the buttress was square at dawn.',
-    type:'Ops', icon:'target', rail:84
-  },
-  {
-    no:'04', when:'Jan 2026', where:'Somnath, Gujarat',
-    role:'Accreditation <em>Officer</em>',
-    org:'Somnath Swabhiman Parva — 1000 Years',
-    venue:'Somnath · Coast', clock:'18:32 IST',
-    pts:[
-      'VIP accreditation & PM-protocol access control for a state-level cultural event.',
-      'Designed zone matrix, badge tiers and gate flow with security & state liaison.',
-      'Authored event SOPs and command-and-control protocol.'
-    ],
-    mini:[['<em>PM</em>','Protocol'],['<em>4</em>','Zones'],['<em>1k</em>','Years']],
-    skills:['Protocol','Security','State Liaison'],
-    quote:'PM-tier protocol compresses a year of decisions into hours — documentation is what holds.',
-    type:'Ops', icon:'shield', rail:68
-  },
-  {
-    no:'03', when:'2024 — 2025', where:'Jharkhand',
-    role:'Business <em>Analyst</em>',
-    org:'SAJHA — Sports Authority of Jharkhand',
-    venue:'Ranchi · Govt.', clock:'11:08 IST',
-    pts:[
-      'Documented end-to-end requirements for a unified state sports portal.',
-      'Mapped federation, athlete, coach and infrastructure workflows.',
-      'Coordinated with engineering teams to ship federation modules.'
-    ],
-    mini:[['<em>9</em><sup>/12</sup>','Fed.'],['<em>7+</em>','Flows'],['<em>BRD</em>','Authored']],
-    skills:['BA','Figma','Govt. Stack','Word'],
-    quote:'State sports administration runs on paper. The portal is the first time the paper has a memory.',
-    type:'BA', icon:'doc', rail:52
-  },
-  {
-    no:'02', when:'2023 — 2024', where:'Multi-stadium · India',
-    role:'Accreditation <em>Manager</em>',
-    org:'TATA IPL — Paytm Insider',
-    venue:'Wankhede / Eden / Chinnaswamy', clock:'19:30 IST',
-    pts:[
-      'Multi-stadium accreditation operations across the IPL season.',
-      'Owned ground access control, vendor printing, real-time issue resolution.',
-      'Built escalation paths with security, broadcast and franchise stakeholders.'
-    ],
-    mini:[['<em>6</em>','Venues'],['<em>10k+</em>','Badges'],['<em>99.7</em><sup>%</sup>','Uptime']],
-    skills:['Ops','Security','Vendor','Field Ops'],
-    quote:'An IPL stadium is a moving city. My job was to make sure the gates agreed with each other.',
-    type:'Ops', icon:'badge', marquee:true, rail:36
-  },
-  {
-    no:'01', when:'2023', where:'Goa',
-    role:'Accreditation <em>Policy</em>',
-    org:'37th National Games, Goa — Sports Authority of Goa',
-    venue:'Panaji · SAG', clock:'10:20 IST',
-    pts:[
-      'Drafted accreditation policy and tender documentation.',
-      'Integrated IT systems with on-ground accreditation processes.',
-      'Coordinated 30+ disciplines, federations and state ministries.'
-    ],
-    mini:[['<em>30</em><sup>+</sup>','Disciplines'],['<em>1</em>','Policy'],['<em>9</em><sup>/9</sup>','Sign-offs']],
-    skills:['Policy','Tender','Govt.','SOPs'],
-    quote:'A national-games policy doesn\u2019t end at the games — it becomes precedent for every meet after.',
-    type:'Policy', icon:'policy', rail:20
-  }
-];
+/* ============= SOUNDS HELPER ============= */
+function S(name){ if(window.Sounds && typeof window.Sounds[name] === 'function') window.Sounds[name](); }
 
-/* ============= PROJECT DATA (modal) ============= */
-const PROJECTS = {
-  gms:{
-    name:'Games Management System', client:'GoBananas', year:'2025 — Present',
-    pill:'01 · Now', role:'Product & Business Analysis',
-    title:'Games <em>Management</em> System',
-    strap:'A platform built to run real federations and real events — from registration through accreditation, draw, scoring and reporting.',
-    overview:'Authoring the BRD, FRD and PRD for a single platform that replaces the spreadsheet-and-WhatsApp stack federations rely on. The work moves between user research with federation operators, wireframing flows in Figma, and writing automation specs engineering can implement without ambiguity.',
-    why:'Why this matters · Federations spend half their event time chasing data. A single source of truth across registration, accreditation and competition unlocks better scheduling, faster results and credible reporting.',
-    hud:[['3','Modules'],['BRD<sup>+2</sup>','Spec set'],['<em>Live</em>','Status']],
-    sealNo:'GMS', phases:[1,1,1,1,0,0],
-    kvs:[
-      ['Role','Product · BA · UX'],
-      ['Modules','Registration · Accreditation · Tournament'],
-      ['Status','Active development'],
-      ['Stakeholders','GMS team · Federations'],
-      ['Outputs','BRD · FRD · PRD · Figma wireframes']
-    ],
-    gallery:[
-      {cap:'Registration flow', kind:'gms-1'},
-      {cap:'Accreditation matrix', kind:'gms-2'},
-      {cap:'Draw board', kind:'gms-3'},
-      {cap:'Scoring console', kind:'gms-4'},
-      {cap:'Reports', kind:'gms-5'}
-    ],
-    specs:[
-      ['Domain','Federation operations'],
-      ['Users','Federation staff · Officials · Athletes'],
-      ['Scale','National events · Multi-discipline'],
-      ['Approach','Modular · API-first'],
-      ['Documentation','Living BRD/FRD/PRD set']
-    ],
-    chips:['Figma','Jira','Claude Code','OpenClaw','MS Word','Notion','Codex','Stitch'],
-    bullets:[
-      '<b>Authored</b> a 3-document spec set (BRD / FRD / PRD) used by engineering and design.',
-      '<b>Wireframed</b> high-fidelity flows for registration, accreditation and tournament.',
-      '<b>Scoped</b> the accreditation module end-to-end with zone, role & access matrices.',
-      '<b>Coordinated</b> design reviews, sprint planning and feature roadmaps.'
-    ],
-    bars:[
-      ['Documentation coverage','94%',94],
-      ['Stakeholder alignment','88%',88],
-      ['Module readiness','71%',71]
-    ]
-  },
-  sajha:{
-    name:'SAJHA Sports Portal', client:'Sports Authority of Jharkhand', year:'2024 — 2025',
-    pill:'02 · Shipped', role:'Business Analyst',
-    title:'<em>SAJHA</em> Sports Portal',
-    strap:'A unified state sports portal — federations, athletes, coaches and infrastructure under one roof.',
-    overview:'Owned business analysis for a state-government portal that brings disparate federation processes into one digital system. Translated the lived reality of state sports administration into requirements that engineering could implement.',
-    why:'Why this matters · State sports bodies coordinate hundreds of federations on paper. A unified portal is the difference between knowing your athlete pool and guessing it.',
-    hud:[['9<sup>/12</sup>','Fed.'],['7<sup>+</sup>','Flows'],['<em>Live</em>','Statewide']],
-    sealNo:'SAJ', phases:[1,1,1,1,1,0],
-    kvs:[
-      ['Role','Lead Business Analyst'],
-      ['Sector','State Government'],
-      ['Lifecycle','Discovery → Delivery'],
-      ['Modules','7+ federation workflows'],
-      ['Compliance','Govt. of Jharkhand standards']
-    ],
-    gallery:[
-      {cap:'Athlete profile', kind:'sajha-1'},
-      {cap:'Federation dashboard', kind:'sajha-2'},
-      {cap:'Coach registry', kind:'sajha-3'},
-      {cap:'Venue infrastructure', kind:'sajha-4'},
-      {cap:'Reports & analytics', kind:'sajha-5'}
-    ],
-    specs:[
-      ['Client','Sports Authority of Jharkhand'],
-      ['Stakeholders','Federations · Coaches · Athletes · Officers'],
-      ['Scope','Statewide rollout'],
-      ['Format','Web portal · multi-role'],
-      ['Documentation','BRD / FRD / Tender alignment']
-    ],
-    chips:['MS Word','Excel','Jira','Figma','Visily','PowerPoint','Govt. Stack'],
-    bullets:[
-      '<b>Mapped</b> 7+ federation workflows into a unified information architecture.',
-      '<b>Authored</b> BRD/FRD aligned with government tender language.',
-      '<b>Drove</b> requirement workshops with sport federations and state officials.',
-      '<b>Bridged</b> engineering & policy stakeholders through delivery.'
-    ],
-    bars:[
-      ['Federations onboarded','9 / 12',75],
-      ['Workflow digitization','81%',81],
-      ['Officer adoption','67%',67]
-    ]
-  },
-  ipl:{
-    name:'TATA IPL Accreditation', client:'Paytm Insider · BCCI', year:'2023 — 2024',
-    pill:'03 · Marquee', role:'Accreditation Manager',
-    title:'TATA IPL <em>Accreditation</em>',
-    strap:'Multi-stadium access control across the IPL season — every badge, gate, zone and exception.',
-    overview:'Ran accreditation operations across multiple IPL venues. Built the systems and SOPs that determined who could go where and when, working alongside franchise, broadcast, security and venue ops teams under real-time pressure.',
-    why:'Why this matters · An IPL stadium is a moving city. Accreditation is the policy layer that keeps it from collapsing — get one zone wrong and a broadcast feed dies.',
-    hud:[['6','Venues'],['10k<sup>+</sup>','Badges'],['99.7<sup>%</sup>','Uptime']],
-    sealNo:'IPL', phases:[1,1,1,1,1,1],
-    kvs:[
-      ['Role','Accreditation Manager'],
-      ['Stadiums','Multi-venue · National'],
-      ['Stakeholders','BCCI · Franchises · Broadcast'],
-      ['Real-time decisions','Daily'],
-      ['Volume','Thousands of badges / venue']
-    ],
-    gallery:[
-      {cap:'Stadium aerial', kind:'ipl-1'},
-      {cap:'Badge zones', kind:'ipl-2'},
-      {cap:'Gate ops', kind:'ipl-3'},
-      {cap:'Floodlit field', kind:'ipl-4'},
-      {cap:'Command room', kind:'ipl-5'}
-    ],
-    specs:[
-      ['Scale','IPL season · Multi-stadium'],
-      ['Functions','Access control · Real-time ops · Vendor'],
-      ['Pressure','Match day, no margin'],
-      ['Coordination','Security · Broadcast · Franchise'],
-      ['Outputs','Zone matrices · SOPs · Escalations']
-    ],
-    chips:['Excel','Word','PowerPoint','Vendor Mgmt','Govt. Liaison','Field Ops'],
-    bullets:[
-      '<b>Managed</b> accreditation operations across multiple IPL stadiums.',
-      '<b>Built</b> zone matrices, badge tiers and gate-level flow protocols.',
-      '<b>Resolved</b> real-time access escalations on match days.',
-      '<b>Coordinated</b> printing, vendor lifecycle and audit reporting.'
-    ],
-    bars:[
-      ['Match-day uptime','99.7%',99],
-      ['Issue resolution SLA','< 4 min',92],
-      ['Stakeholder NPS','High',88]
-    ]
-  },
-  ng:{
-    name:'37th National Games · Goa', client:'Sports Authority of Goa', year:'2023',
-    pill:'04 · Policy', role:'Accreditation Policy & IT',
-    title:'37th National <em>Games</em>, Goa',
-    strap:'Drafted accreditation policy, tender documentation and IT integration for India\'s largest multi-sport event.',
-    overview:'Authored the accreditation policy that governed access for 30+ disciplines across the games. Wrote tender documents, integrated IT systems with on-ground accreditation, and coordinated between state ministries, federations and operations vendors.',
-    why:'Why this matters · National Games is the rehearsal for the Olympic dream. Policy here becomes precedent for every multi-sport event India runs next.',
-    hud:[['30<sup>+</sup>','Disciplines'],['1','Policy'],['9<sup>/9</sup>','Sign-offs']],
-    sealNo:'NG', phases:[1,1,1,1,1,1],
-    kvs:[
-      ['Role','Policy Author · IT Coordinator'],
-      ['Disciplines','30+'],
-      ['Host','Sports Authority of Goa'],
-      ['Doc set','Policy · Tender · SOP'],
-      ['Coordination','Inter-ministry']
-    ],
-    gallery:[
-      {cap:'Opening ceremony', kind:'ng-1'},
-      {cap:'Policy document', kind:'ng-2'},
-      {cap:'Venue map', kind:'ng-3'},
-      {cap:'IT integration', kind:'ng-4'},
-      {cap:'Tender review', kind:'ng-5'}
-    ],
-    specs:[
-      ['Format','Multi-sport · 30+ disciplines'],
-      ['Authoring','Policy · Tender · SOP'],
-      ['Integration','Accreditation IT systems'],
-      ['Coordination','SAG · Federations · Vendors'],
-      ['Outputs','Living policy doc · Procurement set']
-    ],
-    chips:['MS Word','Excel','Policy Frameworks','Govt. Tendering','SOP Authoring'],
-    bullets:[
-      '<b>Drafted</b> end-to-end accreditation policy adopted for the games.',
-      '<b>Wrote</b> tender documents aligned with state procurement.',
-      '<b>Integrated</b> on-ground accreditation with IT backend.',
-      '<b>Liaised</b> across ministries, federations and venue ops.'
-    ],
-    bars:[
-      ['Policy adoption','100%',100],
-      ['Tender clearance','First pass',92],
-      ['Cross-ministry sign-off','9/9',100]
-    ]
-  },
-  archery:{
-    name:'Khelo India Archery — Ambaji', client:'NTPC Khelo India', year:'Jan 2026',
-    pill:'05 · 2026', role:'Venue Lead',
-    title:'Archery National <em>Ranking</em>',
-    strap:'Setting up a competition archery venue in Ambaji, Gujarat to international AAI standards.',
-    overview:'Led venue setup for the NTPC Khelo India Archery National Ranking tournament. Owned vendor coordination, equipment audits, range calibration and competition flow to World Archery / AAI standards.',
-    why:'Why this matters · A national ranking event determines who shoots for India next. The range has to be precise, the scoring credible and the timing bulletproof.',
-    hud:[['70<sup>m</sup>','Range'],['AAI','Std.'],['<em>Soon</em>','Status']],
-    sealNo:'AMB', phases:[1,1,1,1,0,0],
-    kvs:[
-      ['Role','Venue Lead'],
-      ['Discipline','Archery (Recurve · Compound)'],
-      ['Standard','World Archery · AAI'],
-      ['Location','Ambaji, Gujarat'],
-      ['Year','January 2026']
-    ],
-    gallery:[
-      {cap:'Range overview', kind:'archery-1'},
-      {cap:'Target setup', kind:'archery-2'},
-      {cap:'Athlete bay', kind:'archery-3'},
-      {cap:'Scoring booth', kind:'archery-4'},
-      {cap:'Calibration', kind:'archery-5'}
-    ],
-    specs:[
-      ['Distances','18m / 30m / 50m / 70m'],
-      ['Equipment','Targets · Stands · Buttresses · Nets'],
-      ['Compliance','AAI · WA standards'],
-      ['Functions','Vendor · Officials · Athlete services'],
-      ['Outputs','Range layout · Audit log']
-    ],
-    chips:['Vendor Mgmt','AAI Standards','Field Ops','Excel','SOP Writing'],
-    bullets:[
-      '<b>Calibrated</b> archery range to AAI international standards.',
-      '<b>Owned</b> vendor onboarding, equipment audits and on-field setup.',
-      '<b>Coordinated</b> officials, scoring teams and athlete services.',
-      '<b>Authored</b> competition flow SOPs for the meet.'
-    ],
-    bars:[
-      ['Range compliance','AAI ✓',100],
-      ['Setup days saved','-2',82],
-      ['Vendor SLA','On-time',95]
-    ]
-  },
-  somnath:{
-    name:'Somnath Swabhiman Parva', client:'1000 Years of Somnath Mandir', year:'Jan 2026',
-    pill:'06 · PM Protocol', role:'Accreditation & Event Flow',
-    title:'Somnath <em>Swabhiman</em> Parva',
-    strap:'VIP accreditation, PM-protocol access control and event flow for a state-level cultural event.',
-    overview:'Owned accreditation and event-flow design for the 1000-year cultural commemoration at Somnath. Designed the badge tier system, gate-level access logic and command protocols for an event hosted by the Prime Minister.',
-    why:'Why this matters · A PM event compresses years of crowd, security and protocol decisions into hours. Documentation is the only thing that holds.',
-    hud:[['PM','Tier'],['4','Zones'],['<em>1k</em>','Years']],
-    sealNo:'SOM', phases:[1,1,1,1,0,0],
-    kvs:[
-      ['Role','Accreditation · Event flow'],
-      ['Format','State cultural event'],
-      ['Protocol','PM-tier'],
-      ['Location','Somnath, Gujarat'],
-      ['Year','January 2026']
-    ],
-    gallery:[
-      {cap:'Temple at twilight', kind:'somnath-1'},
-      {cap:'Stage build', kind:'somnath-2'},
-      {cap:'VIP badge', kind:'somnath-3'},
-      {cap:'Gate flow', kind:'somnath-4'},
-      {cap:'Command room', kind:'somnath-5'}
-    ],
-    specs:[
-      ['Audience','Federation · State · PM-tier'],
-      ['Zones','FOP · VIP · Stage · Press'],
-      ['Coordination','State · Security · Cultural'],
-      ['Outputs','Zone matrix · SOPs · Badge tiers'],
-      ['Sensitivity','High protocol']
-    ],
-    chips:['Word','Excel','Protocol','Govt. Liaison','Security Liaison','Field Ops'],
-    bullets:[
-      '<b>Designed</b> VIP accreditation tiers and zone matrix.',
-      '<b>Authored</b> event-flow & command SOPs for the cultural program.',
-      '<b>Coordinated</b> state agencies, security and cultural production.',
-      '<b>Ran</b> rehearsal & dry-run cycles to surface gate-flow risks.'
-    ],
-    bars:[
-      ['Protocol compliance','100%',100],
-      ['Gate-flow incidents','0 critical',96],
-      ['Cross-agency sign-off','All-clear',100]
-    ]
-  }
-};
+function refreshContentRefs(){
+  if(!CS){ return; }
+  ROLES = CS.get('roles') || [];
+  const order = CS.get('projectOrder') || ['gms','sajha','ipl','ng','archery','somnath'];
+  const allProj = CS.get('projects') || {};
+  PROJECTS = {};
+  order.forEach(k => { if(allProj[k]) PROJECTS[k] = allProj[k]; });
+  TWEAKS = {
+    accent: CS.get('theme.accent') || '#d63919',
+    theme: CS.get('theme.mode') || 'paper',
+    showTicker: CS.get('ticker.enabled') !== false,
+    showPolaroids: true
+  };
+}
+refreshContentRefs();
+
 
 /* ============= CURTAIN ============= */
 function initCurtain(){
@@ -409,6 +71,7 @@ function initTheme(){
     TWEAKS.theme = t;
   };
   btn.addEventListener('click', () => {
+    S('themeToggle');
     const cur = document.body.getAttribute('data-theme') || 'paper';
     apply(cur === 'paper' ? 'floodlights' : 'paper');
   });
@@ -481,13 +144,31 @@ function initDeck(){
   const dotsWrap = document.querySelector('.deck-dots');
   const prevBtn = document.querySelector('.deck-prev');
   const nextBtn = document.querySelector('.deck-next');
+  const playBtn = document.querySelector('.deck-play');
   const counter = document.querySelector('.deck-counter b');
   const nowEmp = document.querySelector('.deck-now-emp');
+  const tcA = document.querySelector('.tb-tcA');
+  const tcB = document.querySelector('.tb-tcB');
+  const scrubDots = document.querySelector('.ts-dots');
+  const scrubFill = document.querySelector('.ts-fill');
+  const filmFrames = document.querySelector('.film-frames');
+  const reelsCard = document.querySelector('.bs-reels');
+  const locNameEl = document.querySelector('.bs-loc-name');
+  const coordEl = document.querySelector('.bs-coord');
+  const tapeIdEl = document.querySelector('.bs-tape-id');
+  const mvType = document.querySelector('.mv-type');
+  const mvId = document.querySelector('.mv-id');
+  const mvDur = document.querySelector('.mv-dur');
+  const mvSide = document.querySelector('.mv-side');
+  const statusPill = document.querySelector('.bs-status-pill');
+  const trajCur = document.querySelector('.traj-pts circle.cur');
   if(!stage) return;
 
   let idx = 0;
+  let playing = false;
+  let autoTimer = null;
 
-  // Build cards
+  // Card builder
   const typeIcons = {
     product:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="10" height="10"/><path d="M2 6h10M6 2v10"/></svg>',
     target:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5"/><circle cx="7" cy="7" r="2.5"/><circle cx="7" cy="7" r="0.7" fill="currentColor"/></svg>',
@@ -497,6 +178,17 @@ function initDeck(){
     policy:'<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2.5 2.5 H11.5 V11.5 H2.5 Z"/><path d="M5 2.5 V11.5 M9 2.5 V11.5"/><path d="M5 5 H11.5 M5 8 H11.5"/></svg>'
   };
 
+  // Project-cover gradient backgrounds for filmstrip frames
+  const frameBgs = {
+    'product':'radial-gradient(60% 80% at 30% 20%,rgba(255,181,71,.55),transparent 60%),linear-gradient(135deg,#1a1410,#0a0805)',
+    'target':'repeating-radial-gradient(circle at 80% 30%,#fff8e1 0 14px,#f4d56e 14px 28px,#14110a 28px 42px,#d63919 42px 56px,#14110a 56px 70px)',
+    'shield':'radial-gradient(50% 80% at 50% 100%,rgba(255,181,71,.55),transparent 65%),linear-gradient(180deg,#3a1a08,#0a0502)',
+    'doc':'radial-gradient(60% 80% at 50% 100%,rgba(60,140,90,.6),transparent 70%),linear-gradient(160deg,#0e3a2a,#08231a)',
+    'badge':'radial-gradient(70% 100% at 50% 0%,rgba(255,181,71,.8),transparent 65%),linear-gradient(180deg,#3a1606,#14060a)',
+    'policy':'radial-gradient(60% 100% at 100% 100%,rgba(64,170,180,.45),transparent 70%),linear-gradient(135deg,#0a283d,#040e18)'
+  };
+
+  // Build cards
   ROLES.forEach((r, i) => {
     const c = document.createElement('div');
     c.className = 'deck-card';
@@ -521,7 +213,7 @@ function initDeck(){
         <div class="dc-mini">
           ${r.mini.map(([v,k]) => `<div><div class="v">${v}</div><div class="k">${k}</div></div>`).join('')}
         </div>
-        <div class="dc-quote">“${r.quote}”</div>
+        <div class="dc-quote">\u201c${r.quote}\u201d</div>
         <div class="dc-skills">${r.skills.map(s => `<span>${s}</span>`).join('')}</div>
         <div class="dc-foot">
           <span class="seal">${r.marquee ? 'Marquee · IPL' : (r.live ? 'Now Playing' : 'Closed Out')}</span>
@@ -534,22 +226,57 @@ function initDeck(){
     `;
     stage.appendChild(c);
 
+    // dot
     const dot = document.createElement('button');
     dot.setAttribute('aria-label', `Role ${i+1}`);
-    dot.addEventListener('click', () => { idx = i; render(); });
+    dot.addEventListener('click', () => { S('tap'); idx = i; render(); });
     dotsWrap.appendChild(dot);
+  });
+
+  // Build year-scrubber dots (6 = one per role, newest on right)
+  // Map idx (0=newest) to scrub-pos (5=newest right)
+  const yrs = [...ROLES].reverse(); // 0 oldest → 5 newest
+  yrs.forEach((r, scrubPos) => {
+    const b = document.createElement('button');
+    b.dataset.scrubPos = scrubPos;
+    b.setAttribute('aria-label', `Jump to ${r.when}`);
+    b.addEventListener('click', () => { S('swipe'); idx = ROLES.length - 1 - scrubPos; render(); });
+    scrubDots.appendChild(b);
+  });
+
+  // Build filmstrip frames (newest on left, matches idx)
+  ROLES.forEach((r, i) => {
+    const f = document.createElement('button');
+    f.className = 'frame';
+    f.dataset.idx = i;
+    f.style.setProperty('--fb', frameBgs[r.icon] || '');
+    f.innerHTML = `
+      <span class="fm-no">${r.no} · ${r.where.split(',')[0]}</span>
+      <span class="fm-t">${r.role.replace(/<[^>]+>/g,'')}</span>
+    `;
+    // Apply bg
+    f.querySelector(':scope::before'); // noop
+    f.style.cssText = `background:${frameBgs[r.icon] || ''}`;
+    f.addEventListener('click', () => { S('tileClick'); idx = i; render(); });
+    filmFrames.appendChild(f);
   });
 
   const cards = [...stage.querySelectorAll('.deck-card')];
   const dots = [...dotsWrap.querySelectorAll('button')];
+  const scrubBtns = [...scrubDots.querySelectorAll('button')];
+  const frameBtns = [...filmFrames.querySelectorAll('.frame')];
+  const mapDots = [...document.querySelectorAll('.md')];
 
   function render(){
+    const r = ROLES[idx];
+
+    // Cards (perspective stack)
     cards.forEach((c, i) => {
       const off = i - idx;
       const abs = Math.abs(off);
-      let tx = off * 64;
-      let ty = abs * 14;
-      let rot = off * -4;
+      let tx = off * 56;
+      let ty = abs * 12;
+      let rot = off * -3.5;
       let scale = 1 - Math.min(abs, 3) * 0.07;
       let z = 10 - abs;
       let op = abs > 2 ? 0 : 1;
@@ -558,29 +285,75 @@ function initDeck(){
       c.style.zIndex = z;
       c.style.opacity = op;
       c.style.filter = filter;
-      c.style.pointerEvents = abs === 0 ? 'auto' : 'auto';
     });
+
+    // Dots
     dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+
+    // Counter + now
     counter.textContent = String(idx+1).padStart(2,'0');
-    nowEmp.textContent = ROLES[idx].org.split('·')[0].trim();
+    if(nowEmp) nowEmp.textContent = r.org.split('·')[0].trim();
+    if(tcA) tcA.textContent = r.no;
+    if(tcB) tcB.textContent = String((6-idx)*7).padStart(2,'0');
+
+    // Scrubber
+    const scrubPos = ROLES.length - 1 - idx; // 0..5 left→right
+    scrubBtns.forEach((b, i) => {
+      b.classList.toggle('on', i === scrubPos);
+      b.classList.toggle('done', i < scrubPos);
+    });
+    if(scrubFill) scrubFill.style.width = ((scrubPos/(ROLES.length-1)) * 100) + '%';
+
+    // Filmstrip
+    frameBtns.forEach((f, i) => f.classList.toggle('on', i === idx));
+
+    // Map dot
+    mapDots.forEach(m => m.classList.toggle('on', m.dataset.loc === r.loc));
+
+    // Reels paused state for archived?
+    if(reelsCard) reelsCard.classList.toggle('paused', !r.live);
+
+    // Bside metadata
+    if(locNameEl) locNameEl.textContent = r.locName;
+    if(coordEl) coordEl.textContent = r.coord;
+    if(tapeIdEl) tapeIdEl.textContent = r.tapeId;
+    if(mvType) mvType.textContent = r.type;
+    if(mvId) mvId.textContent = r.tapeId;
+    if(mvDur) mvDur.textContent = r.duration;
+    if(mvSide) mvSide.textContent = r.side;
+    if(statusPill){
+      statusPill.textContent = r.live ? 'LIVE' : 'ARCHIVE';
+      statusPill.classList.toggle('off', !r.live);
+    }
+
+    // Trajectory current point
+    if(trajCur){ trajCur.setAttribute('cx', r.trajX); trajCur.setAttribute('cy', r.trajY); }
   }
 
   // Click side card to focus
   cards.forEach((c, i) => {
-    c.addEventListener('click', (e) => {
-      if(i !== idx && !c._dragging){ idx = i; render(); }
+    c.addEventListener('click', () => {
+      if(i !== idx && !c._dragging){ S('tileClick'); idx = i; render(); stopAuto(); }
     });
   });
 
   // Controls
-  prevBtn.addEventListener('click', () => { idx = (idx - 1 + ROLES.length) % ROLES.length; render(); });
-  nextBtn.addEventListener('click', () => { idx = (idx + 1) % ROLES.length; render(); });
+  const stopAuto = () => { playing = false; if(autoTimer){ clearInterval(autoTimer); autoTimer = null; } updatePlayIcon(); };
+  const startAuto = () => { playing = true; autoTimer = setInterval(() => { idx = (idx + 1) % ROLES.length; render(); }, 3800); updatePlayIcon(); };
+  const updatePlayIcon = () => {
+    if(!playBtn) return;
+    playBtn.querySelector('.ico-play').style.display = playing ? 'none' : '';
+    playBtn.querySelector('.ico-pause').style.display = playing ? '' : 'none';
+  };
+  prevBtn?.addEventListener('click', () => { S('swipe'); stopAuto(); idx = (idx - 1 + ROLES.length) % ROLES.length; render(); });
+  nextBtn?.addEventListener('click', () => { S('swipe'); stopAuto(); idx = (idx + 1) % ROLES.length; render(); });
+  playBtn?.addEventListener('click', () => { S('tap'); playing ? stopAuto() : startAuto(); });
 
   // Keys
   window.addEventListener('keydown', (e) => {
     if(document.querySelector('.env.open')) return;
-    if(e.key === 'ArrowLeft'){ idx = (idx - 1 + ROLES.length) % ROLES.length; render(); }
-    if(e.key === 'ArrowRight'){ idx = (idx + 1) % ROLES.length; render(); }
+    if(e.key === 'ArrowLeft'){ S('swipe'); stopAuto(); idx = (idx - 1 + ROLES.length) % ROLES.length; render(); }
+    if(e.key === 'ArrowRight'){ S('swipe'); stopAuto(); idx = (idx + 1) % ROLES.length; render(); }
   });
 
   // Drag
@@ -590,6 +363,7 @@ function initDeck(){
     if(!c || +c.dataset.idx !== idx) return;
     down = true; sx = e.clientX; dragCard = c;
     c.classList.add('drag');
+    stopAuto();
   });
   window.addEventListener('pointermove', (e) => {
     if(!down) return;
@@ -602,6 +376,7 @@ function initDeck(){
     if(dragCard) dragCard.classList.remove('drag');
     down = false;
     if(Math.abs(dx) > 80){
+      S('swipe');
       if(dx < 0) idx = (idx + 1) % ROLES.length;
       else idx = (idx - 1 + ROLES.length) % ROLES.length;
     }
@@ -616,7 +391,10 @@ function initDeck(){
 function initPass(){
   const pass = document.getElementById('pass');
   if(!pass) return;
-  pass.addEventListener('click', () => pass.classList.toggle('flipped'));
+  pass.addEventListener('click', () => {
+    S('passFlip');
+    pass.classList.toggle('flipped');
+  });
 }
 
 /* ============= GALLERY IMAGE BG ============= */
@@ -642,6 +420,28 @@ function galleryBg(kind){
   ];
   const seed = (parseInt(kind.split('-')[1] || '1') - 1) % seeds.length;
   return seeds[seed];
+}
+
+/* ============= TILT (project cards) ============= */
+function initTilt(){
+  const cards = document.querySelectorAll('.proj');
+  cards.forEach(card => {
+    const bp = card.querySelector('.proj-blueprint');
+    const title = card.querySelector('.prs-title');
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;   // -0.5..0.5
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(1200px) rotateX(${-y*4}deg) rotateY(${x*5}deg) translateY(-4px)`;
+      if(bp) bp.style.transform = `translate3d(${x*-10}px, ${y*-8}px, 0)`;
+      if(title) title.style.transform = `translate3d(${x*4}px, ${y*3}px, 0)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      if(bp) bp.style.transform = '';
+      if(title) title.style.transform = '';
+    });
+  });
 }
 
 /* ============= PROJECT MODAL ============= */
@@ -767,15 +567,16 @@ function initModal(){
   }
 
   document.querySelectorAll('.proj').forEach(el => {
-    el.addEventListener('click', () => open(el.dataset.key));
+    el.addEventListener('click', () => { S('tileClick'); S('modalOpen'); open(el.dataset.key); });
   });
-  closeBtn.addEventListener('click', close);
-  env.addEventListener('click', (e) => { if(e.target === env) close(); });
-  window.addEventListener('keydown', (e) => { if(e.key === 'Escape') close(); });
+  closeBtn.addEventListener('click', () => { S('modalClose'); close(); });
+  env.addEventListener('click', (e) => { if(e.target === env){ S('modalClose'); close(); } });
+  window.addEventListener('keydown', (e) => { if(e.key === 'Escape' && env.classList.contains('open')){ S('modalClose'); close(); } });
 
   // Tabs
   env.querySelectorAll('.env-tab').forEach(t => {
     t.addEventListener('click', () => {
+      S('tap');
       const tab = t.dataset.tab;
       env.querySelectorAll('.env-tab').forEach(x => x.classList.toggle('active', x === t));
       env.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === tab));
@@ -864,7 +665,8 @@ function initFolders(){
       const open = f.getAttribute('aria-expanded') === 'true';
       // accordion: close others
       folders.forEach(o => o.setAttribute('aria-expanded','false'));
-      if(!open) f.setAttribute('aria-expanded','true');
+      if(!open){ f.setAttribute('aria-expanded','true'); S('folderOpen'); }
+      else { S('folderClose'); }
     });
   });
 }
@@ -959,8 +761,463 @@ function initTweaks(){
   try{ window.parent.postMessage({type:'__edit_mode_available'}, '*'); }catch{}
 }
 
+/* ============= CONTENT APPLICATION ============= */
+function $(sel, root){ return (root || document).querySelector(sel); }
+function $$(sel, root){ return [...(root || document).querySelectorAll(sel)]; }
+
+function applyContent(){
+  if(!CS) return;
+  const c = CS.getAll();
+
+  // Meta
+  document.title = c.meta.title || document.title;
+  const md = document.querySelector('meta[name="description"]');
+  if(md && c.meta.description) md.setAttribute('content', c.meta.description);
+
+  // Theme CSS variables
+  const root = document.documentElement;
+  if(c.theme.accent) root.style.setProperty('--flood', c.theme.accent);
+  document.body.setAttribute('data-theme', c.theme.mode || 'paper');
+
+  // Generic data-c walkers
+  $$('[data-c]').forEach(el => {
+    const path = el.dataset.c;
+    const v = CS.get(path);
+    if(v != null) el.textContent = v;
+  });
+  $$('[data-c-html]').forEach(el => {
+    const path = el.dataset.cHtml;
+    const v = CS.get(path);
+    if(v != null) el.innerHTML = v;
+  });
+  $$('[data-c-attr]').forEach(el => {
+    const spec = el.dataset.cAttr;
+    const idx = spec.indexOf(':');
+    if(idx < 0) return;
+    const attr = spec.slice(0, idx);
+    const path = spec.slice(idx + 1);
+    const v = CS.get(path);
+    if(v != null) el.setAttribute(attr, v);
+  });
+
+  // Curtain
+  setText('.curtain .meta', c.curtain && c.curtain.meta);
+  setHtml('.curtain .mark', c.curtain && c.curtain.markHtml);
+  setText('.curtain .strap', c.curtain && c.curtain.strap);
+
+  // Ticker
+  renderTicker(c.ticker);
+
+  // Masthead
+  setText('.masthead .mast-mark', c.masthead && c.masthead.markLetter);
+  setText('.masthead .mast-title', c.masthead && c.masthead.title);
+  const mastMeta = $('.masthead .mast-meta');
+  if(mastMeta && c.masthead){
+    mastMeta.innerHTML =
+      '<span>Vol. <b>'+esc(c.masthead.vol)+'</b></span>' +
+      '<span>Issue <b>'+esc(c.masthead.issue)+'</b></span>' +
+      '<span>Edition <b>'+esc(c.masthead.edition)+'</b></span>';
+  }
+  const workLink = $('.masthead a.btn-ghost[href="#work"]');
+  if(workLink && c.masthead){
+    workLink.innerHTML = esc(c.masthead.workCta) + '\n        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11 L11 3 M5 3 H11 V9"/></svg>';
+  }
+  const hireLink = $('.masthead a.btn-ghost.solid');
+  if(hireLink && c.masthead){
+    hireLink.innerHTML = esc(c.masthead.hireCta) + '\n        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7 H11 M7 3 L11 7 L7 11"/></svg>';
+  }
+
+  // Hero
+  renderHero(c.hero);
+
+  // Manifesto
+  renderManifesto(c.manifesto);
+
+  // Stats
+  renderStats(c.stats);
+
+  // Work section header + project tiles
+  setText('.section[id="work"] .section-tag .num', c.work && c.work.sectionNum);
+  const workTagEl = $('.section[id="work"] .section-tag');
+  if(workTagEl && c.work) workTagEl.lastChild && (workTagEl.lastChild.nodeValue = ' ' + c.work.sectionLabel);
+  setHtml('.section[id="work"] .section-h', c.work && c.work.titleHtml);
+  setText('.section[id="work"] .section-lede', c.work && c.work.lede);
+  renderProjectTiles();
+
+  // Career section header
+  const careerSec = document.querySelectorAll('.section[data-folio]')[3];
+  if(careerSec && c.career){
+    setText('.section-tag .num', c.career.sectionNum, careerSec);
+    const tagEl = careerSec.querySelector('.section-tag');
+    if(tagEl) tagEl.lastChild && (tagEl.lastChild.nodeValue = ' ' + c.career.sectionLabel);
+    setHtml('.section-h', c.career.titleHtml, careerSec);
+    setText('.section-lede', c.career.lede, careerSec);
+  }
+
+  // Toolkit
+  renderToolkit(c.toolkit);
+
+  // Contact
+  renderContact(c.contact);
+
+  // Pass
+  renderPass(c.pass);
+
+  // Colophon
+  setHtml('.colophon h2.big', c.colophon && c.colophon.bigHtml);
+  const colMeta = $('.colophon .meta');
+  if(colMeta && c.colophon) colMeta.innerHTML = c.colophon.meta;
+}
+
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]); }
+function setText(sel, val, root){ const el = (root || document).querySelector(sel); if(el && val != null) el.textContent = val; }
+function setHtml(sel, val, root){ const el = (root || document).querySelector(sel); if(el && val != null) el.innerHTML = val; }
+
+function renderTicker(t){
+  const tk = $('.ticker');
+  if(!tk) return;
+  if(!t){ return; }
+  tk.style.display = t.enabled ? '' : 'none';
+  const label = $('.ticker .label', tk);
+  if(label){
+    label.innerHTML = '<span class="pulse"></span> ' + esc(t.label || 'Live · Ops');
+  }
+  const track = $('.ticker .track', tk);
+  if(track){
+    const items = (t.items || []).concat(t.items || []); // duplicate for seamless loop
+    track.innerHTML = items.map(i => `<span><span class="dot">●</span>${esc(i)}</span>`).join('');
+  }
+}
+
+function renderHero(h){
+  if(!h) return;
+  const issue = $('.cover .issue');
+  if(issue){
+    issue.innerHTML =
+      '<span class="pill">'+esc(h.pill)+'</span>' +
+      '<span>'+esc(h.est)+'</span>' +
+      '<span>'+esc(h.section)+'</span>';
+  }
+  const h1 = $('.cover h1');
+  if(h1) h1.innerHTML = esc(h.firstName) + '<br>' + esc(h.lastName) + '<span class="amp">.</span>';
+  const roles = $('.cover .roles');
+  if(roles){
+    roles.innerHTML = (h.roleChips || []).map((r,i) => `<span class="role-chip${i===0?' solid':''}">${esc(r)}</span>`).join('');
+  }
+  const loc = $('.cover .location');
+  if(loc){
+    loc.innerHTML = '<b>'+esc(h.locationCity)+'</b>'+esc(h.coordinates)+'<br>'+esc(h.availability);
+  }
+  const cue = $('.cover .scrollcue');
+  if(cue){
+    cue.innerHTML = '<span class="line"></span>'+esc(h.scrollCue);
+  }
+  // Tickets
+  const tickets = $$('.tickets .ticket');
+  (h.tickets || []).forEach((tk, i) => {
+    const el = tickets[i];
+    if(!el) return;
+    const art = el.querySelector('.tk-art');
+    if(art){
+      art.className = 'tk-art ' + (tk.art || '');
+      if(tk.imageUrl){
+        art.style.background = `url("${tk.imageUrl}") center/cover`;
+      } else {
+        art.style.background = '';
+      }
+    }
+    setText('.tk-event', tk.event, el);
+    setText('.tk-stamp', tk.stamp, el);
+    // rows
+    const head = el.querySelector('.tk-head');
+    const barcode = el.querySelector('.tk-barcode');
+    const body = el.querySelector('.tk-body');
+    if(body){
+      // remove existing rows
+      [...body.querySelectorAll('.tk-row')].forEach(r => r.remove());
+      const rows = (tk.rows || []).map(([k,v]) => `<div class="tk-row"><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
+      if(barcode){ barcode.insertAdjacentHTML('beforebegin', rows); }
+      else if(head){ head.insertAdjacentHTML('afterend', rows); }
+    }
+    setText('.tk-stub-no', tk.stub, el);
+    setText('.tk-stub-l', tk.stubLabel, el);
+  });
+  // Feature
+  if(h.feature){
+    const feat = $('.feature');
+    if(feat){
+      setText('.feature .stamp', h.feature.stamp, feat);
+      setHtml('.feature h3', h.feature.titleHtml, feat);
+      setText('.feature p', h.feature.body, feat);
+      const ul = feat.querySelector('ul');
+      if(ul){
+        ul.innerHTML = (h.feature.items || []).map(it => `<li><span>${esc(it.label)}</span><b>${esc(it.value)}</b></li>`).join('');
+      }
+    }
+  }
+}
+
+function renderManifesto(m){
+  if(!m) return;
+  const sec = document.querySelectorAll('.section[data-folio]')[0];
+  if(!sec) return;
+  setText('.section-tag .num', m.sectionNum, sec);
+  const tagEl = sec.querySelector('.section-tag');
+  if(tagEl) tagEl.lastChild && (tagEl.lastChild.nodeValue = ' ' + m.sectionLabel);
+  setHtml('.section-h', m.titleHtml, sec);
+  const body = sec.querySelector('.manifesto .body');
+  if(body){
+    const paras = (m.paragraphs || []).map(p => `<p>${p}</p>`).join('');
+    const pq = m.pullquote || {body:'', cite:''};
+    const pqHtml = `<blockquote class="pullquote">${esc(pq.body)}<cite>${esc(pq.cite)}</cite></blockquote>`;
+    // Insert paragraphs[0], paragraphs[1], pullquote, paragraphs[2]
+    body.innerHTML =
+      ((m.paragraphs || []).slice(0,2).map(p => `<p>${p}</p>`).join('')) +
+      pqHtml +
+      ((m.paragraphs || []).slice(2).map(p => `<p>${p}</p>`).join(''));
+  }
+  // Dossier folders
+  const side = sec.querySelector('.dossier');
+  if(side && m.dossier){
+    const meta = side.querySelector('.doss-meta');
+    if(meta && m.dossierMeta){
+      meta.innerHTML =
+        '<span>'+esc(m.dossierMeta.name)+'</span>' +
+        '<span>'+esc(m.dossierMeta.files)+'</span>' +
+        '<span class="doss-instr">'+esc(m.dossierMeta.hint)+'</span>';
+    }
+    // remove existing folders, re-render
+    [...side.querySelectorAll('.folder')].forEach(f => f.remove());
+    m.dossier.forEach((d, i) => {
+      const folder = document.createElement('button');
+      folder.className = 'folder';
+      folder.dataset.folder = ['now','write','run'][i] || ('f'+i);
+      folder.setAttribute('aria-expanded', i === 0 ? 'true' : 'false');
+      folder.innerHTML = `
+        <div class="folder-tab">
+          <span class="f-num">${esc(d.num)}</span>
+          <span class="f-title">${esc(d.title)}</span>
+          <span class="f-stamp ${esc(d.stampClass || '')}">${esc(d.stamp)}</span>
+          <svg class="f-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 4.5 L6 7.5 L9 4.5"/></svg>
+        </div>
+        <div class="folder-body">
+          <div class="folder-seal">${esc(d.seal)}</div>
+          ${(d.rows || []).map(([l,r]) => `<div class="row"><span>${l}</span><span>${r}</span></div>`).join('')}
+          <div class="folder-foot"><span>${esc(d.footLeft)}</span><span>${esc(d.footRight)}</span></div>
+        </div>
+      `;
+      side.appendChild(folder);
+    });
+  }
+}
+
+function renderStats(s){
+  if(!s) return;
+  const sec = document.querySelectorAll('.section[data-folio]')[1];
+  if(!sec) return;
+  setText('.section-tag .num', s.sectionNum, sec);
+  const tagEl = sec.querySelector('.section-tag');
+  if(tagEl) tagEl.lastChild && (tagEl.lastChild.nodeValue = ' ' + s.sectionLabel);
+  const grid = sec.querySelector('.stats');
+  if(grid && s.items){
+    grid.innerHTML = s.items.map(it => `
+      <div class="stat">
+        <div class="num"><span data-count="${esc(it.num)}">00</span>${it.suffix ? '<sup>'+esc(it.suffix)+'</sup>' : ''}</div>
+        <div class="label">${esc(it.label)}</div>
+        <div class="sub">${esc(it.sub)}</div>
+      </div>
+    `).join('');
+  }
+}
+
+function renderProjectTiles(){
+  const c = CS.getAll();
+  const order = c.projectOrder || ['gms','sajha','ipl','ng','archery','somnath'];
+  $$('.proj').forEach(el => {
+    const key = el.dataset.key;
+    const p = (c.projects || {})[key];
+    if(!p) return;
+    // Top strip
+    const gate = el.querySelector('.proj-gate');
+    if(gate) gate.innerHTML = '<i></i>GATE · ' + esc(p.gate);
+    const stamp = el.querySelector('.proj-stamp');
+    if(stamp){
+      stamp.className = 'proj-stamp ' + (p.stampClass || '');
+      stamp.textContent = p.stamp;
+    }
+    // Blueprint meta
+    setText('.bp-meta', p.bpMeta, el);
+    // Sign
+    setText('.prs-client', p.client, el);
+    setText('.prs-year', p.year, el);
+    setHtml('.prs-title', p.tileTitleHtml, el);
+    // KPIs
+    const kpi = el.querySelector('.prs-kpi');
+    if(kpi && p.kpis){
+      kpi.innerHTML = p.kpis.map(([v,k]) => `<div><b>${v}</b><span>${esc(k)}</span></div>`).join('');
+    }
+    // Status
+    const st = el.querySelector('.prs-status');
+    if(st){
+      st.className = 'prs-status ' + (p.statusClass || '');
+      st.innerHTML = '<i></i> ' + esc(p.statusLabel);
+    }
+  });
+}
+
+function renderToolkit(t){
+  if(!t) return;
+  const sec = document.querySelectorAll('.section[data-folio]')[4];
+  if(!sec) return;
+  setText('.section-tag .num', t.sectionNum, sec);
+  const tagEl = sec.querySelector('.section-tag');
+  if(tagEl) tagEl.lastChild && (tagEl.lastChild.nodeValue = ' ' + t.sectionLabel);
+  setHtml('.section-h', t.titleHtml, sec);
+  setText('.section-lede', t.lede, sec);
+  const grid = sec.querySelector('.toolkit');
+  if(!grid || !t.groups) return;
+  const icons = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h7M9 8h3"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M9 3v18"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 L20 7 V17 L12 21 L4 17 V7 Z"/><path d="M12 3 V21 M4 7 L20 17 M20 7 L4 17"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 20 L12 4 L20 20 Z"/><path d="M8 14 H16"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 L22 8 L12 13 L2 8 Z"/><path d="M6 10 V15 C6 16.5 9 18 12 18 C15 18 18 16.5 18 15 V10"/></svg>'
+  ];
+  grid.innerHTML = t.groups.map((g, gi) => `
+    <div class="tk-group">
+      <h5><span class="ic">${icons[gi] || icons[0]}</span>${esc(g.name)}</h5>
+      <div class="tk-list">
+        ${(g.items || []).map(it => {
+          const star = /\*$/.test(it);
+          const txt = star ? it.slice(0, -1) : it;
+          return `<span${star ? ' class="star"' : ''}>${esc(txt)}</span>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderContact(c){
+  if(!c) return;
+  const sec = $('#contact');
+  if(!sec) return;
+  setText('.section-tag .num', c.sectionNum, sec);
+  const tagEl = sec.querySelector('.section-tag');
+  if(tagEl) tagEl.lastChild && (tagEl.lastChild.nodeValue = ' ' + c.sectionLabel);
+  setHtml('h2', c.titleHtml, sec);
+  setText('.lede', c.lede, sec);
+  const wrap = sec.querySelector('.contact-links');
+  if(wrap && c.links){
+    wrap.innerHTML = c.links.map(l => {
+      const isDl = (l.href || '').endsWith('.pdf') ? ' download' : '';
+      const ext = /^https?:/.test(l.href || '') ? ' target="_blank" rel="noopener"' : '';
+      return `<a class="c-link" href="${esc(l.href)}"${isDl}${ext}><span>${esc(l.text)}</span><small>${esc(l.small)}</small></a>`;
+    }).join('');
+  }
+}
+
+function renderPass(p){
+  if(!p) return;
+  const front = $('.pass-front');
+  const back = $('.pass-back');
+  if(front && p.front){
+    const f = p.front;
+    setText('.ev', f.ev, front);
+    setHtml('.pf-head .title', f.titleHtml, front);
+    setText('.lvl', f.lvl, front);
+    setHtml('.name', f.nameHtml, front);
+    setText('.role', f.role, front);
+    const zones = front.querySelector('.zones');
+    if(zones && f.zones){
+      zones.innerHTML = f.zones.map(z => `<span${z.denied ? ' class="no"':''}>${esc(z.label)}</span>`).join('');
+    }
+    const fs = front.querySelector('.footstrip');
+    if(fs) fs.innerHTML = '<span>'+esc(f.idCode)+'</span><span>'+esc(f.validYear)+'</span>';
+    const photo = front.querySelector('.photo');
+    if(photo){
+      if(f.photoUrl){
+        photo.style.background = `url("${f.photoUrl}") center/cover`;
+      } else {
+        photo.style.background = '';
+      }
+    }
+  }
+  if(back && p.back){
+    const b = p.back;
+    setText('.bk-h', b.title, back);
+    const list = back.querySelector('.bk-list');
+    if(list){
+      list.innerHTML =
+        esc(b.intro) +
+        '<b>Permitted</b>' + b.permitted +
+        '<b>Zones</b>' + esc(b.zones) +
+        '<b>Notes</b>' + esc(b.notes);
+    }
+    setText('.bk-code', b.code, back);
+    const sig = back.querySelector('.signature');
+    if(sig) sig.innerHTML = esc(b.signature) + '<small>' + esc(b.signatureSub) + '</small>';
+  }
+  // Hint
+  const hint = $('.pass-hint');
+  if(hint && p.hint) hint.textContent = p.hint;
+}
+
+/* ============= STORAGE SYNC ============= */
+function watchContentChanges(){
+  // Reload on storage changes from another tab (e.g. admin saved)
+  window.addEventListener('storage', (e) => {
+    if(e.key === (CS && CS.KEY)) {
+      location.reload();
+    }
+  });
+  // Same-tab (e.g. iframe preview): listen for postMessage from admin
+  window.addEventListener('message', (e) => {
+    const d = e.data || {};
+    if(d.type === 'portfolio:content-updated'){
+      CS.load();
+      refreshContentRefs();
+      location.reload();
+    }
+  });
+}
+
+/* ============= GLOBAL CLICK SOUNDS ============= */
+function initGlobalClickSounds(){
+  // Delegated click listener for elements that aren't bound by specific handlers above.
+  document.addEventListener('click', (e) => {
+    const t = e.target;
+    if(!t || !t.closest) return;
+    // Skip the sound toggle button itself (it has its own behavior)
+    if(t.closest('.sound-toggle')) return;
+    // Magnetic header buttons (Work, Hire Akash, theme already covered)
+    if(t.closest('a[data-magnetic]')){ S('tileClick'); return; }
+    // Contact links
+    if(t.closest('.c-link')){ S('tileClick'); return; }
+    // Section anchors / generic anchor jumps
+    if(t.closest('.skip-link')){ S('tap'); return; }
+    // Hero ticket "click" (decorative — still satisfying)
+    if(t.closest('.ticket')){ S('tap'); return; }
+  });
+
+  // Subtle hover ticks on key interactive elements (capped via rate limit in Sounds)
+  function hoverWire(sel){
+    document.querySelectorAll(sel).forEach(el => {
+      el.addEventListener('pointerenter', () => S('hover'));
+    });
+  }
+  hoverWire('.proj');
+  hoverWire('.deck-card');
+  hoverWire('.folder');
+  hoverWire('a[data-magnetic]');
+  hoverWire('.c-link');
+  hoverWire('.role-chip');
+}
+
 /* ============= BOOT ============= */
 function boot(){
+  applyContent();
+  refreshContentRefs();
   tagReveals();
   initCurtain();
   initScrollProg();
@@ -971,10 +1228,13 @@ function boot(){
   initDeck();
   initPass();
   initModal();
+  initTilt();
   initPolaroids();
   initTickets();
   initFolders();
   initTweaks();
+  initGlobalClickSounds();
+  watchContentChanges();
 }
 if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
 else boot();
